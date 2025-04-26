@@ -9,10 +9,10 @@ const AttendanceCalculator = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen w-full flex items-center justify-center bg-pink-200">
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-          Attendance Calculator
+          Calculate Your Attendance
         </h2>
 
         <div className="mb-4">
@@ -25,7 +25,7 @@ const AttendanceCalculator = () => {
             value={attendance}
             onChange={(e) => setAttendance(e.target.value)}
             placeholder="Enter percentage"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
+            className="w-full px-4 py-2 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
           />
         </div>
 
@@ -37,7 +37,7 @@ const AttendanceCalculator = () => {
             id="period"
             value={period}
             onChange={(e) => setPeriod(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
+            className="w-full text-black px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
           >
             <option value="monthly">Monthly</option>
             <option value="quarterly">Quarterly</option>
