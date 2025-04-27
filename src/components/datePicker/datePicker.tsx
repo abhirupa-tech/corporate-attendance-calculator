@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from "react";
-
-const DAYS_IN_MONTH = 30;
-const START_DAY_INDEX = 2; // April 2025 starts on Tuesday
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { addSelectedDay, setDayCount } from "../../redux/calendarSlice";
 
 const DatePicker: React.FC = () => {
-    const [calendarDays, setCalendarDays] = useState<(number | null)[]>([]);
-    const [selectedDate, setSelectedDate] = useState<number | null>(null);
-
-    useEffect(() => {
-        const daysArray: (number | null)[] = new Array(42).fill(null);
-        for (let i = 0; i < DAYS_IN_MONTH; i++) {
-            daysArray[START_DAY_INDEX + i] = i + 1;
-        }
-        setCalendarDays(daysArray);
-    }, []);
+    const dayCount = useSelector((state: RootState) => state.calendar.dayCount); // Updated to use `dayCount`
+    const selectedDays = useSelector((state: RootState) => state.calendar.selectedDays);
+    const startDayIndex = useSelector((state: RootState) => state.calendar.startDayIndex);
+    const days = useSelector((state: RootState) => state.calendar.days);
+    const dispatch = useDispatch();
 
     const handleDateClick = (day: number | null) => {
         if (day) {
-            setSelectedDate(day);
+            dispatch(addSelectedDay(day));
             console.log(`Selected Date: April ${day}, 2025`);
         }
     };
@@ -36,12 +31,12 @@ const DatePicker: React.FC = () => {
                         {day}
                     </div>
                 ))}
-                {calendarDays.map((day, index) => (
+                {days.map((day, index) => ( // Now using `dayCount`
                     <div
                         key={index}
-                        className={`w-10 h-10 flex items-center justify-center text-sm rounded-md cursor-pointer transition-colors duration-200 
+                        className={`w-10 h-10 flex items-center justify-center text-sm rounded-md cursor-pointer transition-colors duration-200
                             ${day ? "bg-gray-100 text-black hover:bg-gray-200" : "text-gray-300"} 
-                            ${selectedDate === day ? "bg-yellow-500 text-white font-bold" : ""}`}
+                            ${selectedDays.includes(String(day ?? "")) ? "bg-yellow-500 text-white font-bold" : ""}`}
                         onClick={() => handleDateClick(day)}
                     >
                         {day || ""}
