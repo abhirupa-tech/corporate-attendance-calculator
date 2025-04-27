@@ -34,6 +34,11 @@ export interface WeeklyAttendance {
   days: string[];
 }
 
+export interface RawDate {
+  day: number;
+  month: number;
+  year: number;
+}
 // const userAttendance: AttendanceRecord = {
 //   year: 2025,
 //   daysAttended: [20250105, 20250106, 20250115, 20250202, 20250210], // Example dates in YYYYMMDD format

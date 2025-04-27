@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { addSelectedDay, setDayCount } from "../../redux/calendarSlice";
+import { RawDate } from "../../backend/types";
 
 const DatePicker: React.FC = () => {
     const dayCount = useSelector((state: RootState) => state.calendar.dayCount); // Updated to use `dayCount`
@@ -10,10 +11,16 @@ const DatePicker: React.FC = () => {
     const days = useSelector((state: RootState) => state.calendar.days);
     const dispatch = useDispatch();
 
-    const handleDateClick = (day: number | null) => {
+
+    //To-do: Check current month and set day count
+    useEffect(() => {
+        dispatch(setDayCount(30));
+    }, [dispatch]);
+
+    const handleDateClick = (day: RawDate) => {
         if (day) {
             dispatch(addSelectedDay(day));
-            console.log(`Selected Date: April ${day}, 2025`);
+            console.log("Selected Days: ", selectedDays);
         }
     };
 
@@ -31,15 +38,15 @@ const DatePicker: React.FC = () => {
                         {day}
                     </div>
                 ))}
-                {days.map((day, index) => ( // Now using `dayCount`
+                {days.map((date, index) => ( // Now using `dayCount`
                     <div
                         key={index}
                         className={`w-10 h-10 flex items-center justify-center text-sm rounded-md cursor-pointer transition-colors duration-200
-                            ${day ? "bg-gray-100 text-black hover:bg-gray-200" : "text-gray-300"} 
-                            ${selectedDays.includes(String(day ?? "")) ? "bg-yellow-500 text-white font-bold" : ""}`}
-                        onClick={() => handleDateClick(day)}
+                            ${date ? "bg-gray-100 text-black hover:bg-gray-200" : "text-gray-300"} 
+                            ${selectedDays.includes(date) ? "bg-yellow-500 text-white font-bold" : ""}`}
+                        onClick={() => handleDateClick(date)}
                     >
-                        {day || ""}
+                        {date?.day ?? ""}
                     </div>
                 ))}
             </div>
