@@ -1,17 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg' 
 import './App.css'
 import AttendanceCalculator from './components/form/form'
+import DatePicker from './components/datePicker/datePicker'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
+    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-pink-200">
       <AttendanceCalculator/>
-    </>
+      <DatePicker/>
+    </div>
   )
 }
 
-export default App
+export default App;
