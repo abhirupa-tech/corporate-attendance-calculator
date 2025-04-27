@@ -30,6 +30,7 @@ const calendarSlice = createSlice({
             console.log("Selected Day: ", action.payload);
         },
         removeSelectedDay: (state, action) => {
+            console.log("Removing Day: ", action.payload);
             state.selectedDays = state.selectedDays.filter(day => day !== action.payload);
         },
         clearSelectedDays: (state) => {

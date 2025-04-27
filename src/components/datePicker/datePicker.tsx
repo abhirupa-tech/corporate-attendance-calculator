@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { addSelectedDay, setDayCount } from "../../redux/calendarSlice";
+import { addSelectedDay, setDayCount, removeSelectedDay } from "../../redux/calendarSlice";
 import { RawDate } from "../../backend/types";
 
 const DatePicker: React.FC = () => {
@@ -19,7 +19,8 @@ const DatePicker: React.FC = () => {
 
     const handleDateClick = (day: RawDate) => {
         if (day) {
-            dispatch(addSelectedDay(day));
+            if(!selectedDays.includes(day)) dispatch(addSelectedDay(day));
+            else dispatch(removeSelectedDay(day));
             console.log("Selected Days: ", selectedDays);
         }
     };
