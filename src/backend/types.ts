@@ -1,17 +1,18 @@
-export enum Month {
-  January = 31,
-  February = 28,
-  March = 31,
-  April = 30,
-  May = 31,
-  June = 30,
-  July = 31,
-  August = 31,
-  September = 30,
-  October = 31,
-  November = 30,
-  December = 31,
-}
+export const monthMap = new Map<number, { name: string; days: number }>([
+  [1, { name: "January", days: 31 }],
+  [2, { name: "February", days: 28 }],
+  [3, { name: "March", days: 31 }],
+  [4, { name: "April", days: 30 }],
+  [5, { name: "May", days: 31 }],
+  [6, { name: "June", days: 30 }],
+  [7, { name: "July", days: 31 }],
+  [8, { name: "August", days: 31 }],
+  [9, { name: "September", days: 30 }],
+  [10, { name: "October", days: 31 }],
+  [11, { name: "November", days: 30 }],
+  [12, { name: "December", days: 31 }],
+]);
+
 
 export interface AttendanceRecord {
   year: number;

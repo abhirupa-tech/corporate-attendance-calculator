@@ -1,18 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RawDate } from "../backend/types";
+import { monthMap, RawDate } from "../backend/types";
+import { getCurrentDate } from "../backend/dateHandler";
 
 interface CalendarState {
     dayCount : number;
-    startDayIndex : number; // 0-6 (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-    days: RawDate[]; // 1-31
-    selectedDays : RawDate[]; //DDMMYYYY
-}
-
-const initialCalendarState: CalendarState = {
-    dayCount : 30,
-    startDayIndex : 2,
-    days: [],
-    selectedDays : [],
+    startDayIndex : number;
+    month: string;
+    year: number;
+    days: RawDate[];
+    selectedDays : RawDate[];
+    now: RawDate; //Today's Date
 }
 
 //Actions
@@ -40,12 +37,28 @@ const calendarSlice = createSlice({
 });
 
 const generateCalendarDays = (dayCount: number, startDayIndex: number): RawDate[] => {
+    const now = getCurrentDate();
     const daysArray: RawDate[] = new Array(42).fill(null);
     for (let i = 0; i < dayCount; i++) {
-        daysArray[startDayIndex + i] = {day: i + 1, month: 4, year: 2025} as RawDate;
+        daysArray[startDayIndex + i] = {day: i + 1, month: now.month, year: now.year} as RawDate;
     }
     return daysArray;
 };
+
+const initialCalendarState = (() => {
+    const { month, year } = getCurrentDate();
+    const dayCount = monthMap.get(month)?.days ?? 0;
+
+    return {
+        dayCount,
+        startDayIndex: 2,
+        month,
+        year,
+        days: generateCalendarDays(dayCount, 2),
+        selectedDays: [],
+        now: { day: month, month, year },
+    };
+})();
 
 
 export default calendarSlice.reducer;

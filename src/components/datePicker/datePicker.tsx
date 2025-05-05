@@ -3,13 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { addSelectedDay, setDayCount, removeSelectedDay } from "../../redux/calendarSlice";
 import { RawDate } from "../../backend/types";
+import { getCurrentDate } from "../../backend/dateHandler";
 
 const DatePicker: React.FC = () => {
     const dayCount = useSelector((state: RootState) => state.calendar.dayCount); // Updated to use `dayCount`
     const selectedDays = useSelector((state: RootState) => state.calendar.selectedDays);
     const startDayIndex = useSelector((state: RootState) => state.calendar.startDayIndex);
     const days = useSelector((state: RootState) => state.calendar.days);
+    const now = useSelector((state: RootState) => state.calendar.now);
+
+    const {month, totalDays} = now;
     const dispatch = useDispatch();
+
 
 
     //To-do: Check current month and set day count
@@ -24,13 +29,13 @@ const DatePicker: React.FC = () => {
         }
     };
     console.log("Updated Days: ", selectedDays);
-    
+
 
     return (
         <div className="max-w-sm mx-auto bg-white rounded-lg shadow-md p-4">
             {/* Header */}
-            <div className="text-center font-semibold text-lg border-b pb-2">
-                April 2025
+            <div className="text-center text-black font-semibold text-lg border-b pb-2">
+                {get}
             </div>
 
             {/* Days Grid */}
