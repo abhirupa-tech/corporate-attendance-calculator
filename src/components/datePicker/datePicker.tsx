@@ -21,9 +21,10 @@ const DatePicker: React.FC = () => {
         if (day) {
             if(!selectedDays.includes(day)) dispatch(addSelectedDay(day));
             else dispatch(removeSelectedDay(day));
-            console.log("Selected Days: ", selectedDays);
         }
     };
+    console.log("Updated Days: ", selectedDays);
+    
 
     return (
         <div className="max-w-sm mx-auto bg-white rounded-lg shadow-md p-4">
