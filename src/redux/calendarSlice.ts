@@ -8,9 +8,36 @@ interface CalendarState {
     month: string;
     year: number;
     days: RawDate[];
-    selectedDays : RawDate[];
+    selectedDays: RawDate[];
     now: RawDate; //Today's Date
 }
+
+const generateCalendarDays = (dayCount: number, startDayIndex: number): RawDate[] => {
+    const now = getCurrentDate();
+    const daysArray: RawDate[] = new Array(42).fill(null);
+    for (let i = 0; i < dayCount; i++) {
+        daysArray[startDayIndex + i] = {day: i + 1, month: now.month, year: now.year} as RawDate;
+    }
+    return daysArray;
+};
+
+//Initial State
+const initialCalendarState = (() => {
+    const { month, year } = getCurrentDate();
+    const dayCount = monthMap.get(month)?.days ?? 0;
+
+    return {
+        dayCount,
+        startDayIndex: 2,
+        month,
+        year,
+        days: generateCalendarDays(dayCount, 2),
+        selectedDays: [] as RawDate[],
+        now: { day: month, month, year },
+    };
+})();
+
+
 
 //Actions
 const calendarSlice = createSlice({
@@ -32,34 +59,30 @@ const calendarSlice = createSlice({
         },
         clearSelectedDays: (state) => {
             state.selectedDays = [];
-        }
-    },
+        },
+        changeCalendar: (state, action) => {
+            let { month, year } = state;
+            switch (action.payload) {
+                case "next":
+                    month++;
+                    if (month > 12) {
+                        month = 1;
+                        year++;
+                    }
+                    break;
+                case "previous":
+                    month--;
+                    if (month < 1) {
+                        month = 12;
+                        year--;
+                    }
+                    break;
+            }
+            state.month = month;
+            state.year = year;;
+        },
+    }
 });
 
-const generateCalendarDays = (dayCount: number, startDayIndex: number): RawDate[] => {
-    const now = getCurrentDate();
-    const daysArray: RawDate[] = new Array(42).fill(null);
-    for (let i = 0; i < dayCount; i++) {
-        daysArray[startDayIndex + i] = {day: i + 1, month: now.month, year: now.year} as RawDate;
-    }
-    return daysArray;
-};
-
-const initialCalendarState = (() => {
-    const { month, year } = getCurrentDate();
-    const dayCount = monthMap.get(month)?.days ?? 0;
-
-    return {
-        dayCount,
-        startDayIndex: 2,
-        month,
-        year,
-        days: generateCalendarDays(dayCount, 2),
-        selectedDays: [],
-        now: { day: month, month, year },
-    };
-})();
-
-
 export default calendarSlice.reducer;
-export const { setDayCount, addSelectedDay, removeSelectedDay, clearSelectedDays } = calendarSlice.actions;
+export const { setDayCount, addSelectedDay, removeSelectedDay, clearSelectedDays, changeCalendar } = calendarSlice.actions;

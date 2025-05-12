@@ -23,7 +23,7 @@ export const getCurrentDate = () : RawDate => {
  * @param {number} year - The year to check.
  * @returns {boolean} `true` if the year is a leap year, otherwise `false`.
  */
-export const getMonthDetails = (monthNumber: number) => {
+export const getMonthDetails = (monthNumber: number) : string => {
     const monthDetails = monthMap.get(monthNumber);
-    return monthDetails ? monthDetails : { name: "Invalid Month", days: 0 };
+    return monthDetails ? monthDetails.name : "Invalid Month";
 };
