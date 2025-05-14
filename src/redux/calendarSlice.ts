@@ -4,7 +4,7 @@ import { getCurrentDate, getDaysInMonth } from "../backend/dateHandler";
 
 interface CalendarState {
     dayCount : number;
-    month: string;
+    month: number;
     year: number;
     days: RawDate[];
     selectedDays: RawDate[];
@@ -27,11 +27,11 @@ const generateCalendarDays = (month: number, year: number): RawDate[] => {
 };
 
 //Initial State
-const initialCalendarState = (() => {
+const initialCalendarState = (() : CalendarState => {
     const { month, year } = getCurrentDate();
 
     return {
-        monthMap: monthMap.get(month)?.days ?? 0,
+        dayCount: monthMap.get(month)?.days ?? 0,
         month,
         year,
         days: generateCalendarDays(month, year),
@@ -39,7 +39,6 @@ const initialCalendarState = (() => {
         now: { day: month, month, year },
     };
 })();
-
 
 
 //Actions
@@ -59,6 +58,7 @@ const calendarSlice = createSlice({
             state.selectedDays = [];
         },
         changeCalendar: (state, action) => {
+            console.log("Selected Days before: ", state.selectedDays);
             let { month, year } = state;
             switch (action.payload) {
                 case "next":
@@ -79,6 +79,7 @@ const calendarSlice = createSlice({
             state.month = month;
             state.year = year;
             state.days = generateCalendarDays(month, year);
+            console.log("Selected Days on Calendar Change: ", state.selectedDays);
         },
     }
 });

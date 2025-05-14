@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import {
@@ -7,23 +7,17 @@ import {
   changeCalendar,
 } from "../../redux/calendarSlice";
 import { RawDate } from "../../backend/types";
-import { getCurrentDate, getMonthDetails } from "../../backend/dateHandler";
+import { getMonthDetails } from "../../backend/dateHandler";
 
 const DatePicker: React.FC = () => {
-  const dayCount = useSelector((state: RootState) => state.calendar.dayCount); // Updated to use `dayCount`
   const selectedDays = useSelector(
     (state: RootState) => state.calendar.selectedDays
   );
-  const startDayIndex = useSelector(
-    (state: RootState) => state.calendar.startDayIndex
-  );
   const days = useSelector((state: RootState) => state.calendar.days);
-  const now = useSelector((state: RootState) => state.calendar.now);
   const month = useSelector((state: RootState) => state.calendar.month);
   const year = useSelector((state: RootState) => state.calendar.year);
 
   const dispatch = useDispatch();
-
 
   const handleDateClick = (day: RawDate) => {
     if (day) {
@@ -34,23 +28,35 @@ const DatePicker: React.FC = () => {
   console.log("Updated Days: ", selectedDays);
   console.log("Updated Month: ", month);
   console.log("Updated Year: ", year);
+  console.log("Selected Days from datepicker: ", selectedDays);
   console.log("Days: ", days);
 
   const handlePreviousMonthNav = () => {
-    console.log("Previous Month");
     dispatch(changeCalendar("previous"));
   };
 
   const handleNextMonthNav = () => {
-    console.log("Next Month");
     dispatch(changeCalendar("next"));
+  };
+
+  const isDateSelected = (day: RawDate) => {
+    if (!day) return false;
+    return selectedDays.some(
+      (selectedDay) =>
+        selectedDay.day === day.day &&
+        selectedDay.month === day.month &&
+        selectedDay.year === day.year
+    );
   };
 
   return (
     <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
       <div className="flex items-center justify-between mb-4">
         {/* Left Navigator */}
-        <button className="px-4 py-2 text-sm font-semibold text-gray-700 !bg-gray-100 rounded-md hover:!bg-gray-300" onClick={() => handlePreviousMonthNav()}>
+        <button
+          className="px-4 py-2 text-sm font-semibold text-gray-700 !bg-gray-100 rounded-md hover:!bg-gray-300"
+          onClick={() => handlePreviousMonthNav()}
+        >
           &lt;
         </button>
 
@@ -63,7 +69,10 @@ const DatePicker: React.FC = () => {
         </div>
 
         {/* Right Navigator */}
-        <button className="px-4 py-2 text-sm font-semibold text-gray-700 !bg-gray-100 rounded-md hover:!bg-gray-300" onClick={() => handleNextMonthNav()}>
+        <button
+          className="px-4 py-2 text-sm font-semibold text-gray-700 !bg-gray-100 rounded-md hover:!bg-gray-300"
+          onClick={() => handleNextMonthNav()}
+        >
           &gt;
         </button>
       </div>
@@ -75,7 +84,6 @@ const DatePicker: React.FC = () => {
             {day}
           </div>
         ))}
-
         {days.map((date, index) => (
           <div
             key={index}
@@ -84,7 +92,7 @@ const DatePicker: React.FC = () => {
             date ? "bg-gray-100 text-black hover:bg-gray-200" : "text-gray-300"
           }  
           ${
-            selectedDays.includes(date)
+            isDateSelected(date)
               ? "bg-yellow-500 text-white font-bold"
               : ""
           }`}
