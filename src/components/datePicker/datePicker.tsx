@@ -5,6 +5,7 @@ import {
   addSelectedDay,
   removeSelectedDay,
   changeCalendar,
+  clearSelectedDays,
 } from "../../redux/calendarSlice";
 import { RawDate } from "../../backend/types";
 import { getMonthDetails } from "../../backend/dateHandler";
@@ -88,19 +89,29 @@ const DatePicker: React.FC = () => {
           <div
             key={index}
             className={`w-10 h-10 flex items-center justify-center text-sm rounded-md cursor-pointer transition-colors duration-200
-          ${
-            date ? "bg-gray-100 text-black hover:bg-gray-200" : "text-gray-300"
-          }  
-          ${
-            isDateSelected(date)
-              ? "bg-yellow-500 text-white font-bold"
-              : ""
-          }`}
+        ${date ? "bg-gray-100 text-black hover:bg-gray-200" : "text-gray-300"}
+        ${isDateSelected(date) ? "bg-yellow-500 text-white font-bold" : ""}`}
             onClick={() => handleDateClick(date)}
           >
             {date?.day ?? ""}
           </div>
         ))}
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex flex-col gap-2 mt-4">
+        <button
+          className="w-full px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition"
+          onClick={() =>{}}
+        >
+          Clear Selection for Month
+        </button>
+        <button
+          className="w-full px-4 py-2 text-sm font-medium text-red-600 bg-gray-100 rounded-md hover:bg-gray-200 transition"
+          onClick={() => dispatch(clearSelectedDays())}
+        >
+          Clear All Selections
+        </button>
       </div>
     </div>
   );
