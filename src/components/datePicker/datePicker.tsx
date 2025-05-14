@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import {
   addSelectedDay,
-  setDayCount,
   removeSelectedDay,
   changeCalendar,
 } from "../../redux/calendarSlice";
@@ -23,14 +22,8 @@ const DatePicker: React.FC = () => {
   const month = useSelector((state: RootState) => state.calendar.month);
   const year = useSelector((state: RootState) => state.calendar.year);
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-
-
-  //To-do: Check current month and set day count
-  useEffect(() => {
-    dispatch(setDayCount(30));
-  }, [dispatch]);
 
   const handleDateClick = (day: RawDate) => {
     if (day) {
@@ -41,6 +34,7 @@ const DatePicker: React.FC = () => {
   console.log("Updated Days: ", selectedDays);
   console.log("Updated Month: ", month);
   console.log("Updated Year: ", year);
+  console.log("Days: ", days);
 
   const handlePreviousMonthNav = () => {
     console.log("Previous Month");
@@ -61,9 +55,12 @@ const DatePicker: React.FC = () => {
         </button>
 
         {/* Calendar Header */}
-        <h2 className="text-lg font-semibold text-gray-800 text-center">
-          {getMonthDetails(month)}
-        </h2>
+        <div className="flex-col items-center justify-center">
+          <h2 className="text-lg font-semibold text-gray-800 text-center">
+            {getMonthDetails(month)}
+          </h2>
+          <h3 className="text-md font-light text-gray-600">{year}</h3>
+        </div>
 
         {/* Right Navigator */}
         <button className="px-4 py-2 text-sm font-semibold text-gray-700 !bg-gray-100 rounded-md hover:!bg-gray-300" onClick={() => handleNextMonthNav()}>

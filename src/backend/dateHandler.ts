@@ -27,3 +27,26 @@ export const getMonthDetails = (monthNumber: number) : string => {
     const monthDetails = monthMap.get(monthNumber);
     return monthDetails ? monthDetails.name : "Invalid Month";
 };
+
+/**
+ * Calculates the number of days in a given month of a specific year.
+ *
+ * @param month - The month number (1 for January, 2 for February, ..., 12 for December).
+ * @param year - The year to consider, used to determine if February has an extra day in a leap year.
+ * @returns The number of days in the specified month and year.
+ * @throws {Error} If the provided month number is invalid.
+ */
+export const getDaysInMonth = (month: number, year: number) : number => {
+    const monthDetails = monthMap.get(month);
+    if (!monthDetails) {
+        throw new Error("Invalid month number");
+    }
+    if (month === 2 && isLeapYear(year)) {
+        return monthDetails.days + 1;
+    }
+    return monthDetails.days;
+}
+
+const isLeapYear = (year: number) : boolean => {
+    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+}
