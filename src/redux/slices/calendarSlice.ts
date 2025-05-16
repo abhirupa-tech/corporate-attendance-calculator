@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { monthMap, RawDate } from "../backend/types";
-import { getCurrentDate, getDaysInMonth } from "../backend/dateHandler";
+import { getCurrentDate } from "../../backend/dateHandler";
+import { monthMap, RawDate } from "../../backend/types";
 
 interface CalendarState {
     dayCount : number;

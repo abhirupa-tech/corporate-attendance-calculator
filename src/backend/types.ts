@@ -14,15 +14,18 @@ export const monthMap = new Map<number, { name: string; days: number }>([
 ]);
 
 
-export interface AttendanceRecord {
-  year: number;
-  cadence: "monthly" | "quarterly" | "rolling";
-  daysAttended: MonthlyAttendance | WeeklyAttendance;
-  currentScore: number;
-  requiredScore: number;
-  daysToMeetScore: number;
+export interface UserData {
+  currentScore: AttendanceScore;
+  requiredScorePercentage: number;
+  daysToMeetScore: AttendanceScore;
+  theme: "dark" | "light";
+}
 
-  calculateAttendance: () => number;
+export interface AttendanceScore {
+  weekly: number;
+  monthly: number;
+  yearly: number;
+  yearToDate: number;
 }
 
 export interface MonthlyAttendance {

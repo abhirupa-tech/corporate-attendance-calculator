@@ -1,8 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import calendarReducer from "./calendarSlice"
+import calendarReducer from "./slices/calendarSlice";
+import userDataReducer from "./slices/userDataSlice";
+
 export const store = configureStore({
     reducer: {
-        calendar: calendarReducer
+        calendar: calendarReducer,
+        userPreferences: userDataReducer,
     }
 });
 

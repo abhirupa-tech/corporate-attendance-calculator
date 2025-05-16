@@ -1,14 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { getMonthDetails } from "../../backend/dateHandler";
+import { RawDate } from "../../backend/types";
 import {
   addSelectedDay,
-  removeSelectedDay,
   changeCalendar,
   clearSelectedDays,
-} from "../../redux/calendarSlice";
-import { RawDate } from "../../backend/types";
-import { getMonthDetails } from "../../backend/dateHandler";
+  removeSelectedDay,
+} from "../../redux/slices/calendarSlice";
+import { RootState } from "../../redux/store";
 
 const DatePicker: React.FC = () => {
   const selectedDays = useSelector(
