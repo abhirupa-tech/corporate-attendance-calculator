@@ -6,7 +6,7 @@
 - [x] Storing Dynamic States in Redux Store so that navigating up and down the calendar will Preserve State
 - [x] Attendance Calculation Logic
 - [] Saving Data in Local Cache
-- [] Option to permanently Clear All data
-- [] Disable Future Dates
+- [x] Option to permanently Clear All data
+- [x] Disable Future Dates
 - [] Bento Grid Implementation
 - [] Cleaning up UI
