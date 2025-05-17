@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMonthDetails } from "../backend/dateHandler";
 import { RawDate } from "../backend/types";
@@ -19,14 +19,30 @@ const DatePicker: React.FC = () => {
   const month = useSelector((state: RootState) => state.calendar.month);
   const year = useSelector((state: RootState) => state.calendar.year);
 
+  const today: RawDate = (() => {
+    const now = new Date();
+    return {
+      day: now.getDate(),
+      month: now.getMonth() + 1,
+      year: now.getFullYear(),
+    };
+  })();
+
+  const isFutureDay = (calendarDay: RawDate) => {
+    if (!calendarDay) return false;
+    if (calendarDay.year > today.year) return true;
+    if (calendarDay.year === today.year && calendarDay.month > today.month) return true;
+    if (calendarDay.year === today.year && calendarDay.month === today.month && calendarDay.day > today.day) return true;
+    return false;
+  };
+
   const dispatch = useDispatch();
 
-  console.log("Updated Days: ", selectedDays);
-  console.log("Updated Month: ", month);
-  console.log("Updated Year: ", year);
-  console.log("Selected Days from datepicker: ", selectedDays);
-  console.log("Days: ", days);
-
+  useEffect(() => {
+    console.log("Selected Days after update: ", selectedDays, "\n\ncount:", selectedDays.length);
+    dispatch(updateAttendance(selectedDays));
+  }, [selectedDays, dispatch]);
+  
   const handlePreviousMonthNav = () => {
     dispatch(changeCalendar("previous"));
   };
@@ -48,8 +64,6 @@ const DatePicker: React.FC = () => {
   const updateUserAttendance = (day: RawDate, action : 'add' | 'remove') => {
     if(action === 'add') dispatch(addSelectedDay(day))
     else dispatch(removeSelectedDay(day));
-  
-    dispatch(updateAttendance(selectedDays));
   };
 
   const handleDateClick = (day: RawDate) => {
@@ -99,7 +113,9 @@ const DatePicker: React.FC = () => {
             key={index}
             className={`w-10 h-10 flex items-center justify-center text-sm rounded-md cursor-pointer transition-colors duration-200
         ${date ? "bg-gray-100 text-black hover:bg-gray-200" : "text-gray-300"}
-        ${isDateSelected(date) ? "bg-yellow-500 text-white font-bold" : ""}`}
+        ${isDateSelected(date) ? "bg-yellow-500 text-white font-bold" : ""}
+        ${isFutureDay(date) ? "bg-gray-200 text-gray-400 pointer-events-none" : ""}
+        ${date === null} "pointer-events-none"`}
             onClick={() => handleDateClick(date)}
           >
             {date?.day ?? ""}

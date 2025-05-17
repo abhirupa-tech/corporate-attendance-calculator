@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RawDate, UserData } from "../../backend/types";
+import { getAttendedDayCount } from "../../backend/attendanceCalculator";
 
 const initalUserPreferencesState : UserData= {
     currentScore: {
@@ -17,36 +18,6 @@ const initalUserPreferencesState : UserData= {
     },
     theme: "dark",
 };
-
-
-const convertToDate = (date: RawDate) => new Date(date.year, date.month - 1, date.day);
-
-const countAttendance = (selectedDays: RawDate[], startDate: Date, endDate: Date) => {
-    let count =  0;
-    for (const day of selectedDays) {
-        const date = convertToDate(day);
-        if (date >= startDate && date <= endDate) {
-            count++;
-        }
-    }
-    return count;
-}
-
-const getAttendedDayCount = (selectedDays: RawDate[], action : 'weekly' | 'monthly' | 'yearly' | 'year-to-date' = 'year-to-date') => {
-    const today = new Date();
-    switch (action) {
-        case 'weekly':
-            return countAttendance(selectedDays, new Date(today.getDate() - 7), today);
-        case 'monthly':
-            return countAttendance(selectedDays, new Date(today.getDate() - 30), today);
-        case 'yearly':
-            return countAttendance(selectedDays, new Date(today.getDate() - 365), today);
-        case 'year-to-date':
-            return countAttendance(selectedDays, new Date(today.getFullYear(), 0, 1), today);
-        default:
-            return countAttendance(selectedDays, new Date(today.getFullYear(), 0, 1), today);
-    }
-}
 
 const userDataSlice = createSlice({
     name: "userPreferences",
