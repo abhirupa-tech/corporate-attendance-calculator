@@ -1,6 +1,6 @@
-import './App.css'
-import AttendanceCalculator from './components/form/form'
-import DatePicker from './components/datePicker/datePicker'
+import './App.css';
+import DatePicker from './components/datePicker';
+import AttendanceCalculator from './components/form';
 
 function App() {
 

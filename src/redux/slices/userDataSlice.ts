@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { UserData } from "../../backend/types";
+import { RawDate, UserData } from "../../backend/types";
 
 const initalUserPreferencesState : UserData= {
     currentScore: {
@@ -18,19 +18,55 @@ const initalUserPreferencesState : UserData= {
     theme: "dark",
 };
 
+
+const convertToDate = (date: RawDate) => new Date(date.year, date.month - 1, date.day);
+
+const countAttendance = (selectedDays: RawDate[], startDate: Date, endDate: Date) => {
+    let count =  0;
+    for (const day of selectedDays) {
+        const date = convertToDate(day);
+        if (date >= startDate && date <= endDate) {
+            count++;
+        }
+    }
+    return count;
+}
+
+const getAttendedDayCount = (selectedDays: RawDate[], action : 'weekly' | 'monthly' | 'yearly' | 'year-to-date' = 'year-to-date') => {
+    const today = new Date();
+    switch (action) {
+        case 'weekly':
+            return countAttendance(selectedDays, new Date(today.getDate() - 7), today);
+        case 'monthly':
+            return countAttendance(selectedDays, new Date(today.getDate() - 30), today);
+        case 'yearly':
+            return countAttendance(selectedDays, new Date(today.getDate() - 365), today);
+        case 'year-to-date':
+            return countAttendance(selectedDays, new Date(today.getFullYear(), 0, 1), today);
+        default:
+            return countAttendance(selectedDays, new Date(today.getFullYear(), 0, 1), today);
+    }
+}
+
 const userDataSlice = createSlice({
     name: "userPreferences",
     initialState: initalUserPreferencesState,
     reducers: {
-        updateScore: (state, action) => {
-            console.log("Updating Score: ", action.payload);
+        updateAttendance: (state, action) => {
+            state.currentScore.weekly = parseFloat(((getAttendedDayCount(action.payload, 'weekly') / 7) * 100).toFixed(1));
+            state.currentScore.monthly = parseFloat(((getAttendedDayCount(action.payload, 'monthly') / 30) * 100).toFixed(1));
+            state.currentScore.yearly = parseFloat(((getAttendedDayCount(action.payload, 'yearly')/365) * 100).toFixed(1)); 
+            state.currentScore.yearly = parseFloat(((getAttendedDayCount(action.payload, 'yearly')/365) * 100).toFixed(1));
+            state.currentScore.yearToDate = parseFloat((getAttendedDayCount(action.payload) * 100).toFixed(1));
+            }
         },
-        setUserData: (state, action) => {
-            console.log("Setting User Data: ", action.payload);
-        }
+        
+        // setUserData: (state, action) => {
+        //     console.log("Setting User Data: ", action.payload);
+        // }
 
-    }
+    
 });
 
-export const { updateScore } = userDataSlice.actions;
+export const { updateAttendance } = userDataSlice.actions;
 export default userDataSlice.reducer;

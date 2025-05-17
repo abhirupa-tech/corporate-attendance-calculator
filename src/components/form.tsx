@@ -1,7 +1,13 @@
+import React from "react";
 import { useState } from "react";
+import { RootState } from "../redux/store";
+import { useSelector, useDispatch} from "react-redux";
 
 const AttendanceCalculator = () => {
   const [attendance, setAttendance] = useState("");
+
+  const attendancePercentage = useSelector((state: RootState) => state.userPreferences.currentScore );
+
 
   return (
     <div className="w-full max-w-lg p-8 bg-white rounded-lg shadow-lg">
@@ -32,25 +38,25 @@ const AttendanceCalculator = () => {
         {/* Weekly Box */}
         <div className="w-full h-24 bg-gray-100 rounded-lg flex items-center justify-center text-center font-medium text-gray-700 shadow-sm 
             hover:bg-gray-200 active:bg-gray-300 transition">
-          Weekly
+          Weekly: {attendancePercentage.weekly}%
         </div>
 
         {/* Monthly Box */}
         <div className="w-full h-24 bg-gray-100 rounded-lg flex items-center justify-center text-center font-medium text-gray-700 shadow-sm 
             hover:bg-gray-200 active:bg-gray-300 transition">
-          Monthly
+          Monthly: {attendancePercentage.monthly}%
         </div>
 
         {/* Yearly Box */}
         <div className="w-full h-24 bg-gray-100 rounded-lg flex items-center justify-center text-center font-medium text-gray-700 shadow-sm 
             hover:bg-gray-200 active:bg-gray-300 transition">
-          Yearly
+          Yearly: {attendancePercentage.yearly}%
         </div>
 
         {/* Year-to-Date Box */}
         <div className="w-full h-24 bg-gray-100 rounded-lg flex items-center justify-center text-center font-medium text-gray-700 shadow-sm 
             hover:bg-gray-200 active:bg-gray-300 transition">
-          Year-to-Date
+          {attendancePercentage.yearToDate}%
         </div>
       </div>
     </div>

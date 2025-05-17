@@ -1,14 +1,15 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMonthDetails } from "../../backend/dateHandler";
-import { RawDate } from "../../backend/types";
+import { getMonthDetails } from "../backend/dateHandler";
+import { RawDate } from "../backend/types";
 import {
   addSelectedDay,
   changeCalendar,
   clearSelectedDays,
   removeSelectedDay,
-} from "../../redux/slices/calendarSlice";
-import { RootState } from "../../redux/store";
+} from "../redux/slices/calendarSlice";
+import { updateAttendance } from "../redux/slices/userDataSlice";
+import { RootState } from "../redux/store";
 
 const DatePicker: React.FC = () => {
   const selectedDays = useSelector(
@@ -20,12 +21,6 @@ const DatePicker: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const handleDateClick = (day: RawDate) => {
-    if (day) {
-      if (!selectedDays.includes(day)) dispatch(addSelectedDay(day));
-      else dispatch(removeSelectedDay(day));
-    }
-  };
   console.log("Updated Days: ", selectedDays);
   console.log("Updated Month: ", month);
   console.log("Updated Year: ", year);
@@ -48,6 +43,20 @@ const DatePicker: React.FC = () => {
         selectedDay.month === day.month &&
         selectedDay.year === day.year
     );
+  };
+
+  const updateUserAttendance = (day: RawDate, action : 'add' | 'remove') => {
+    if(action === 'add') dispatch(addSelectedDay(day))
+    else dispatch(removeSelectedDay(day));
+  
+    dispatch(updateAttendance(selectedDays));
+  };
+
+  const handleDateClick = (day: RawDate) => {
+    if (day) {
+      if (!selectedDays.includes(day)) updateUserAttendance(day, 'add');
+      else updateUserAttendance(day, 'remove');
+    }
   };
 
   return (
