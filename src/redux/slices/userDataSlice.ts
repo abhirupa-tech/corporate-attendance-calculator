@@ -31,12 +31,19 @@ const userDataSlice = createSlice({
             state.currentScore.yearToDate = parseFloat((getAttendedDayCount(action.payload) * 100).toFixed(1));
             }
         },
-        
-        // setUserData: (state, action) => {
-        //     console.log("Setting User Data: ", action.payload);
-        // }
-
-    
+        extraReducers: (builder) => {
+            builder.addCase("persist/REHYDRATE", (state, action) => {
+                const typedAction = action as { payload?: { userPreferences?: typeof state } };
+                
+                if (typedAction.payload?.userPreferences) {
+                    return {
+                        ...state,
+                        ...typedAction.payload.userPreferences,
+                    };
+                }
+                return state;
+            });
+        }
 });
 
 export const { updateAttendance } = userDataSlice.actions;
