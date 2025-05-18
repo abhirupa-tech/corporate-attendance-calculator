@@ -10,10 +10,13 @@ const AttendanceTracker: React.FC = () => {
                 <p className="text-5xl [font-family:'Cormorant_Garamond',serif]" style={{ fontVariationSettings: "'wght' 200" }}>Calculate Your <span className=" italic [font-variation-settings:'ital'_5]">Attendance</span></p>
                 <p className="text-5xl [font-family:'Cormorant_Garamond',serif]" style={{ fontVariationSettings: "'wght' 200" }}>Before HR Starts Asking <span>Questions</span>!</p>
             </h1>
+            
+           
 
-            <BentoGrid />
-            <Form />
-            <DatePicker />
+          <BentoGrid/>
+            
+            {/* <Form />
+            <DatePicker /> */}
         </React.StrictMode>
     );
 };

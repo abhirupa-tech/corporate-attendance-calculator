@@ -74,7 +74,7 @@ const DatePicker: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
+    <div className="w-full bg-white rounded-lg shadow-md p-6">
       <div className="flex items-center justify-between mb-4">
         {/* Left Navigator */}
         <button
@@ -124,7 +124,7 @@ const DatePicker: React.FC = () => {
       </div>
 
       {/* Action Buttons */}
-      <div className="flex flex-col gap-2 mt-4">
+      {/* <div className="flex flex-col gap-2 mt-4">
         <button
           className="w-full px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition"
           onClick={() =>{}}
@@ -137,7 +137,8 @@ const DatePicker: React.FC = () => {
         >
           Clear All Selections
         </button>
-      </div>
+      </div> */}
+
     </div>
   );
 };
