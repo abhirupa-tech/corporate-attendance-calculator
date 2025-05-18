@@ -10,7 +10,7 @@ const AttendanceCalculator = () => {
 
 
   return (
-    <div className="w-full max-w-lg p-8 bg-white rounded-lg shadow-lg">
+    <div className="w-full max-w-5xl p-8 bg-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
         Calculate Your Attendance
       </h2>
