@@ -54,8 +54,19 @@ const calendarSlice = createSlice({
             console.log("Removing Day: ", action.payload);
             state.selectedDays = state.selectedDays.filter(day => !(day.day === action.payload.day && day.month === action.payload.month && day.year === action.payload.year));
         },
-        clearSelectedDays: (state) => {
-            state.selectedDays = [];
+        clearSelectedDays: (state, action) => {
+            switch(action.payload) {
+                case "all":
+                    console.log("Clearing all selected days");
+                    state.selectedDays = [];
+                    break;
+                default:
+                    console.log("Clearing selection for current month");
+                    const currentMonth = state.month;
+                    state.selectedDays = state.selectedDays.filter(day => !(day.month === currentMonth && day.year === state.year));
+                    break;
+            };
+            
         },
         changeCalendar: (state, action) => {
             console.log("Selected Days before: ", state.selectedDays);
@@ -81,6 +92,7 @@ const calendarSlice = createSlice({
             state.days = generateCalendarDays(month, year);
             console.log("Selected Days on Calendar Change: ", state.selectedDays);
         },
+
     }
 });
 

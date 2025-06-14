@@ -1,13 +1,19 @@
 import React from "react";
 import { useState } from "react";
 import { RootState } from "../redux/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DatePicker from "./datePicker";
 import asset1 from "./../assets/img/asset1.png";
+import { clearSelectedDays } from "../redux/slices/calendarSlice";
 
 
 const BentoGrid: React.FC = () => {
 
+    const dispatch = useDispatch();
+
+    const currentMonth = useSelector(
+        (state: RootState) => state.calendar.month
+    );
     const [attendance, setAttendance] = useState("");
 
     const attendancePercentage = useSelector(
@@ -50,13 +56,13 @@ const BentoGrid: React.FC = () => {
                 {/* Button Element */}
                 <div className="row-span-1 col-span-1">
                     <button className="my-1 border border-amber-50 w-full px-2 py-2 !bg-gradient-to-tr from-[#5757b1] via-[#5d55cd] to-[#5a25e2] brightness-125 opacity-80 rounded-2xl transition-colors duration-300 ease-in-out hover:bg-indigo-600"
-                        onClick={() => { }}
+                        onClick={() => dispatch(clearSelectedDays(currentMonth))}
                     >
                         Clear Month Selection
                     </button>
                     <button
                         className="my-1 border border-amber-50 w-full px-2 py-2 !bg-gradient-to-tr from-[#5757b1] via-[#5d55cd] to-[#5a25e2] brightness-125 opacity-80 rounded-2xl !hover:bg-indigo-600 transition"
-                        onClick={() => { }}
+                        onClick={() => dispatch(clearSelectedDays("all"))}
                     >
                         Clear Entire Selection
                     </button>
