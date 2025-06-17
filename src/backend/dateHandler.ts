@@ -50,3 +50,8 @@ export const getDaysInMonth = (month: number, year: number) : number => {
 const isLeapYear = (year: number) : boolean => {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
 }
+
+export const getDayOfWeek = (date: RawDate) : number => {
+    const d = new Date(date.year, date.month - 1, date.day);
+    return d.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+}

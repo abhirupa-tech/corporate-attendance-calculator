@@ -5,6 +5,7 @@ import DatePicker from "./datePicker";
 import asset1 from "../assets/img/grid-item-hybrid.png";
 import assetWork from "../assets/img/grid-image-work.png";
 import { clearSelectedDays } from "../redux/slices/calendarSlice";
+import { shouldDisableWeekends } from "../redux/slices/userDataSlice";
 
 /**
  * BentoGrid Component
@@ -18,6 +19,8 @@ const BentoGrid: React.FC = () => {
   const attendancePercentage = useSelector(
     (state: RootState) => state.userPreferences.currentScore
   );
+  const isWeekendsDisabled = useSelector(
+    (state: RootState) => state.userPreferences.isWeekendDisabled);
 
   return (
     <div className="w-full flex items-center justify-center">
@@ -85,13 +88,17 @@ const BentoGrid: React.FC = () => {
 
         <div className="row-span-1 col-span-1 flex flex-col gap-2 h-full">
           {/* Include Weekends Checkbox */}
-          <label className="flex items-center space-x-2 cursor-pointer text-gray-300 bg-gray-900/10 rounded-lg py-2">
-            <input
-              type="checkbox"
-              className="appearance-none w-6 h-6 border border-gray-500 rounded-md checked:bg-gray-700 checked:border-transparent focus:ring-2 focus:ring-gray-400"
-            />
-            <span className="text-lg">Include Weekends</span>
-          </label>
+          <label className="flex items-center space-x-2 cursor-pointer">
+    <input
+      type="checkbox"
+      checked={isWeekendsDisabled}
+      onChange={() => dispatch(shouldDisableWeekends(!isWeekendsDisabled))}
+      className={`w-6 h-6 border border-gray-500 rounded-md ${
+        isWeekendsDisabled ? "bg-gray-700 rounded-md border-transparent" : ""
+      } focus:ring-2 focus:ring-gray-400`}
+    />
+    <span className="text-lg">Include Weekends</span>
+  </label>
 
           {/* Attribution Link */}
           <a

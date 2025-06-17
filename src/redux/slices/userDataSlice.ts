@@ -16,6 +16,7 @@ const initalUserPreferencesState : UserData= {
         yearly: 0,
         yearToDate: 0,
     },
+    isWeekendDisabled: true,
     theme: "dark",
 };
 
@@ -29,22 +30,26 @@ const userDataSlice = createSlice({
             state.currentScore.yearly = parseFloat(((getAttendedDayCount(action.payload, 'yearly')/365) * 100).toFixed(1)); 
             state.currentScore.yearly = parseFloat(((getAttendedDayCount(action.payload, 'yearly')/365) * 100).toFixed(1));
             state.currentScore.yearToDate = parseFloat((getAttendedDayCount(action.payload) * 100).toFixed(1));
-            }
         },
-        extraReducers: (builder) => {
-            builder.addCase("persist/REHYDRATE", (state, action) => {
-                const typedAction = action as { payload?: { userPreferences?: typeof state } };
-                
-                if (typedAction.payload?.userPreferences) {
-                    return {
-                        ...state,
-                        ...typedAction.payload.userPreferences,
-                    };
-                }
-                return state;
-            });
-        }
+        shouldDisableWeekends: (state, action) => {
+            state.isWeekendDisabled = action.payload;
+
+        },
+    },
+    extraReducers: (builder) => {
+        builder.addCase("persist/REHYDRATE", (state, action) => {
+            const typedAction = action as { payload?: { userPreferences?: typeof state } };
+            
+            if (typedAction.payload?.userPreferences) {
+                return {
+                    ...state,
+                    ...typedAction.payload.userPreferences,
+                };
+            }
+            return state;
+        });
+    }
 });
 
-export const { updateAttendance } = userDataSlice.actions;
+export const { updateAttendance, shouldDisableWeekends } = userDataSlice.actions;
 export default userDataSlice.reducer;

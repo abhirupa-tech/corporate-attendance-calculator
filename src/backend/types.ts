@@ -18,6 +18,7 @@ export interface UserData {
   currentScore: AttendanceScore;
   requiredScorePercentage: number;
   daysToMeetScore: AttendanceScore;
+  isWeekendDisabled: true;
   theme: "dark" | "light";
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMonthDetails } from "../backend/dateHandler";
+import { getDayOfWeek, getMonthDetails } from "../backend/dateHandler";
 import { RawDate } from "../backend/types";
 import {
   addSelectedDay,
@@ -18,6 +18,11 @@ const DatePicker: React.FC = () => {
   const days = useSelector((state: RootState) => state.calendar.days);
   const month = useSelector((state: RootState) => state.calendar.month);
   const year = useSelector((state: RootState) => state.calendar.year);
+  const isWeekendDisabled = useSelector(
+    (state: RootState) => state.userPreferences.isWeekendDisabled
+  );
+
+
 
   const today: RawDate = (() => {
     const now = new Date();
@@ -84,6 +89,13 @@ const DatePicker: React.FC = () => {
     }
   };
 
+  const shouldDisableBecauseWeekend = (date: RawDate) => {
+    const isWeekend = getDayOfWeek(date) === 0 || getDayOfWeek(date) === 6;
+    console.log(
+      `Checking if ${date.day}/${date.month}/${date.year} is a weekend: ${isWeekend}`)
+    return isWeekend && !isWeekendDisabled;
+  };
+
   console.log("Days in DatePicker: ", days);
 
   return (
@@ -134,7 +146,7 @@ const DatePicker: React.FC = () => {
         ${date && !(isFutureDay(date)) ? "bg-white/10 backdrop-blur-lg border border-white/20 text-white hover:bg-gray-700" : "text-gray-300"}
         ${isDateSelected(date) ? "bg-yellow-500 text-white font-bold" : ""}
         ${
-          isFutureDay(date)
+          isFutureDay(date) || (date && shouldDisableBecauseWeekend(date))
             ? "bg-gray-900/10 backdrop-blur-lg border border-gray-500/20 text-gray-500 pointer-events-none"
             : ""
         }
