@@ -23,8 +23,6 @@ const DatePicker: React.FC = () => {
     (state: RootState) => state.userPreferences.isWeekendDisabled
   );
 
-  const [showNotification, setShowNotification] = React.useState(true);
-
   const today: RawDate = (() => {
     const now = new Date();
     return {
@@ -158,15 +156,6 @@ const DatePicker: React.FC = () => {
           </div>
         ))}
       </div>
-
-      {showNotification && (
-        <Notification
-          onProceed={() => {
-            setShowNotification(false);
-          }}
-          onIgnore={() => setShowNotification(false)}
-        />
-      )}
 
     </div>
   );

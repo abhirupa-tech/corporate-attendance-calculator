@@ -6,6 +6,7 @@ import asset1 from "../assets/img/grid-item-hybrid.png";
 import assetWork from "../assets/img/grid-image-work.png";
 import { clearSelectedDays } from "../redux/slices/calendarSlice";
 import { shouldDisableWeekends } from "../redux/slices/userDataSlice";
+import { Notification } from "./notification";
 
 /**
  * BentoGrid Component
@@ -20,18 +21,35 @@ const BentoGrid: React.FC = () => {
     (state: RootState) => state.userPreferences.currentScore
   );
   const isWeekendsDisabled = useSelector(
-    (state: RootState) => state.userPreferences.isWeekendDisabled);
+    (state: RootState) => state.userPreferences.isWeekendDisabled
+  );
+
+  const [showNotification, setShowNotification] = React.useState(false);
+
+  const handleCheckboxChange = (checked: boolean) => {
+    if(checked) setShowNotification(true);
+    else dispatch(shouldDisableWeekends(false));
+  }
+
+  const onProceedRemovingWeekends = () => {
+    setShowNotification(false);
+    dispatch(shouldDisableWeekends(true));
+  }
+
+  const onIgnoreRemovingWeekends = () => {
+    setShowNotification(false);
+    dispatch(shouldDisableWeekends(false));
+  };
 
   return (
     <div className="w-full flex items-center justify-center">
       {/* Grid Layout */}
       <div className="max-w-[1400px] max-h-[600px] grid h-auto xl:h-[80vh] w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-5 gap-4 p-4 xl:mx-32 lg:mx-24 md:mx-16 sm:mx-8">
-        
         {/* Greeting Box */}
         <div className="col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold bg-white/10 backdrop-blur-lg border border-white/30 p-6 text-lg h-auto sm:h-full">
-    Hi Abhirupa 👋 <br />
-    Let's fix your scores!
-</div>
+          Hi Abhirupa 👋 <br />
+          Let's fix your scores!
+        </div>
 
         {/* Weekly Attendance */}
         <div className="relative col-span-1 sm:row-span-auto flex flex-col bg-white/10 backdrop-blur-md border border-white/20 rounded-lg h-auto sm:h-full">
@@ -89,16 +107,20 @@ const BentoGrid: React.FC = () => {
         <div className="row-span-1 col-span-1 flex flex-col gap-2 h-full">
           {/* Include Weekends Checkbox */}
           <label className="flex items-center space-x-2 cursor-pointer">
-    <input
-      type="checkbox"
-      checked={isWeekendsDisabled}
-      onChange={() => dispatch(shouldDisableWeekends(!isWeekendsDisabled))}
-      className={`w-6 h-6 border border-gray-500 rounded-md ${
-        isWeekendsDisabled ? "bg-gray-700 rounded-md border-transparent" : ""
-      } focus:ring-2 focus:ring-gray-400`}
-    />
-    <span className="text-lg">Include Weekends</span>
-  </label>
+            <input
+              type="checkbox"
+              checked={isWeekendsDisabled}
+              onChange={() =>
+                handleCheckboxChange(!isWeekendsDisabled)
+              }
+              className={`w-6 h-6 border border-gray-500 rounded-md ${
+                isWeekendsDisabled
+                  ? "bg-gray-700 rounded-md border-transparent"
+                  : ""
+              } focus:ring-2 focus:ring-gray-400`}
+            />
+            <span className="text-lg">Include Weekends</span>
+          </label>
 
           {/* Attribution Link */}
           <a
@@ -130,6 +152,13 @@ const BentoGrid: React.FC = () => {
           </button>
         </div>
       </div>
+      
+      {showNotification && (
+        <Notification
+        onProceed={onProceedRemovingWeekends}
+        onIgnore={onIgnoreRemovingWeekends}
+        />
+      )}
     </div>
   );
 };
