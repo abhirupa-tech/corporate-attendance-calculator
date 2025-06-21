@@ -92,9 +92,17 @@ const calendarSlice = createSlice({
             state.days = generateCalendarDays(month, year);
             console.log("Selected Days on Calendar Change: ", state.selectedDays);
         },
+        clearSelectedWeekendDays: (state) => {
+            console.log("Clearing selected weekend days");
+            state.selectedDays = state.selectedDays.filter(day => {
+                const date = new Date(day.year, day.month - 1, day.day);
+                const dayOfWeek = date.getDay();
+                return dayOfWeek !== 0 && dayOfWeek !== 6; // Keep only weekdays
+            });
+        }
 
     }
 });
 
 export default calendarSlice.reducer;
-export const { addSelectedDay, removeSelectedDay, clearSelectedDays, changeCalendar } = calendarSlice.actions;
+export const { addSelectedDay, removeSelectedDay, clearSelectedDays, changeCalendar, clearSelectedWeekendDays} = calendarSlice.actions;

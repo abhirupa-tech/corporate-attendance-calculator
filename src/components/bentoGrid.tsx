@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { RootState, AppDispatch } from "../redux/store";
 import DatePicker from "./datePicker";
 import asset1 from "../assets/img/grid-item-hybrid.png";
 import assetWork from "../assets/img/grid-image-work.png";
 import { clearSelectedDays } from "../redux/slices/calendarSlice";
 import { shouldDisableWeekends } from "../redux/slices/userDataSlice";
 import { Notification } from "./notification";
+import { updateWeekendVisibility } from "../redux/thunks/calendarUserDataSyncThunk";
 
 /**
  * BentoGrid Component
@@ -15,7 +16,7 @@ import { Notification } from "./notification";
  * for tracking attendance scores, date selection, and interactions.
  */
 const BentoGrid: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const currentMonth = useSelector((state: RootState) => state.calendar.month);
   const attendancePercentage = useSelector(
     (state: RootState) => state.userPreferences.currentScore
@@ -34,6 +35,7 @@ const BentoGrid: React.FC = () => {
   const onProceedRemovingWeekends = () => {
     setShowNotification(false);
     dispatch(shouldDisableWeekends(true));
+    dispatch(updateWeekendVisibility());
   }
 
   const onIgnoreRemovingWeekends = () => {
