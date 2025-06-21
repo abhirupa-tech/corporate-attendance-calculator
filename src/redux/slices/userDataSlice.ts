@@ -32,6 +32,7 @@ const userDataSlice = createSlice({
             state.currentScore.yearToDate = parseFloat((getAttendedDayCount(action.payload) * 100).toFixed(1));
         },
         shouldDisableWeekends: (state, action) => {
+            console.log("Updating weekend visibility to: ", action.payload);
             state.isWeekendDisabled = action.payload;
 
         },

@@ -22,6 +22,7 @@ const DatePicker: React.FC = () => {
   const isWeekendDisabled = useSelector(
     (state: RootState) => state.userPreferences.isWeekendDisabled
   );
+  console.log("Selector Value isWeekendDisabled: ", isWeekendDisabled);
 
   const today: RawDate = (() => {
     const now = new Date();
@@ -89,10 +90,12 @@ const DatePicker: React.FC = () => {
   };
 
   const shouldDisableBecauseWeekend = (date: RawDate) => {
-    const isWeekend = getDayOfWeek(date) === 0 || getDayOfWeek(date) === 6;
-    console.log(
-      `Checking if ${date.day}/${date.month}/${date.year} is a weekend: ${isWeekend}`)
-    return isWeekend && !isWeekendDisabled;
+    if (!date) return true; // Disable if no date is provided
+    console.log("isWeekendIncluded: ", !isWeekendDisabled);
+    if (!isWeekendDisabled) return false; // If weekends are not disabled, do not disable the date
+    const shouldDisable = getDayOfWeek(date) === 0 || getDayOfWeek(date) === 6;
+    if(shouldDisable) console.log("Disabling date because it's a weekend: ", date);
+    return shouldDisable;
   };
 
   console.log("Days in DatePicker: ", days);
@@ -142,13 +145,13 @@ const DatePicker: React.FC = () => {
           <div
             key={index}
             className={`py-1 text-md flex items-center justify-center w-ful  rounded-md cursor-pointer transition-colors duration-200
-        ${date && !(isFutureDay(date)) ? "bg-white/10 backdrop-blur-lg border border-white/20 text-white hover:bg-gray-700" : "text-gray-300"}
-        ${isDateSelected(date) ? "bg-yellow-500 text-white font-bold" : ""}
-        ${
-          isFutureDay(date) || (date && shouldDisableBecauseWeekend(date))
-            ? "bg-gray-900/10 backdrop-blur-lg border border-gray-500/20 text-gray-500 pointer-events-none"
+                      ${
+        isFutureDay(date) || (shouldDisableBecauseWeekend(date))
+            ? "bg-grey-900 backdrop-blur-lg border border-gray-500/20 text-gray-500 pointer-events-none"
             : ""
         }
+        ${date && !(isFutureDay(date) && (shouldDisableBecauseWeekend(date))) ? "bg-white/10 backdrop-blur-lg border border-white/20 text-white hover:bg-gray-700" : "text-gray-300"}
+        ${isDateSelected(date) ? "bg-yellow-500 text-white font-bold" : ""}
         ${date === null} "pointer-events-none"`}
             onClick={() => handleDateClick(date)}
           >
