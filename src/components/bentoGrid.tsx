@@ -121,7 +121,7 @@ const BentoGrid: React.FC = () => {
                   : ""
               } focus:ring-2 focus:ring-gray-400`}
             />
-            <span className="text-lg">Include Weekends</span>
+            <span className="text-lg">Disable Weekends</span>
           </label>
 
           {/* Attribution Link */}
