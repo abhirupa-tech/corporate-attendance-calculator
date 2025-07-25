@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RawDate, UserData } from "../../backend/types";
-import { getAttendedDayCount } from "../../backend/attendanceCalculator";
+import { getAttendance } from "../../backend/attendanceCalculator";
+import { UserData } from "../../backend/types";
 
 const initalUserPreferencesState : UserData= {
     currentScore: {
@@ -25,11 +25,10 @@ const userDataSlice = createSlice({
     initialState: initalUserPreferencesState,
     reducers: {
         updateAttendance: (state, action) => {
-            state.currentScore.weekly = parseFloat(((getAttendedDayCount(action.payload, 'weekly') / 7) * 100).toFixed(1));
-            state.currentScore.monthly = parseFloat(((getAttendedDayCount(action.payload, 'monthly') / 30) * 100).toFixed(1));
-            state.currentScore.yearly = parseFloat(((getAttendedDayCount(action.payload, 'yearly')/365) * 100).toFixed(1)); 
-            state.currentScore.yearly = parseFloat(((getAttendedDayCount(action.payload, 'yearly')/365) * 100).toFixed(1));
-            state.currentScore.yearToDate = parseFloat((getAttendedDayCount(action.payload) * 100).toFixed(1));
+            state.currentScore.weekly = getAttendance(action.payload, state.isWeekendDisabled, 'weekly');
+            state.currentScore.monthly = getAttendance(action.payload, state.isWeekendDisabled, 'monthly');
+            state.currentScore.yearly = getAttendance(action.payload, state.isWeekendDisabled, 'yearly');
+            state.currentScore.yearToDate = getAttendance(action.payload, state.isWeekendDisabled, 'year-to-date');
         },
         shouldDisableWeekends: (state, action) => {
             console.log("Updating weekend visibility to: ", action.payload);
