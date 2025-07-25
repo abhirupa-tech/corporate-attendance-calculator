@@ -31,12 +31,6 @@ export const getAttendance = (
     case "weekly":
       startDate = new Date(today);
       startDate.setDate(today.getDate() - 7);
-      console.log("StartDate:", startDate);
-      console.log("EndDate:", today);
-      console.log(
-        "Counted Days:",
-        countAttendance(selectedDays, startDate, today)
-      );
       return !isWeekendDisabled ? parseFloat(((countAttendance(selectedDays, startDate, today) / 7) * 100).toFixed(1))
       : parseFloat(((countAttendance(selectedDays, startDate, today) / 5) * 100).toFixed(1));
 
@@ -77,6 +71,7 @@ function countTotalDays(startDate: Date, endDate: Date): number {
   return totalDays;
 }
 
+//There should be a way to emoize this!!!
 function countWeekdays(startDate: Date, endDate: Date): number {
   startDate.setHours(0, 0, 0, 0);
   endDate.setHours(0, 0, 0, 0);
@@ -91,7 +86,7 @@ function countWeekdays(startDate: Date, endDate: Date): number {
   const remainingDays = totalDays % 7;
   const startDay = startDate.getDay(); 
 
-  for (let i = 0; i <= remainingDays; i++) {
+  for (let i = 1; i <= remainingDays; i++) {
     const dayOfWeek = (startDay + i) % 7;
     if (dayOfWeek >= 1 && dayOfWeek <= 5) weekdays++;
   }

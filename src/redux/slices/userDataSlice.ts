@@ -31,7 +31,6 @@ const userDataSlice = createSlice({
             state.currentScore.yearToDate = getAttendance(action.payload, state.isWeekendDisabled, 'year-to-date');
         },
         shouldDisableWeekends: (state, action) => {
-            console.log("Updating weekend visibility to: ", action.payload);
             state.isWeekendDisabled = action.payload;
 
         },

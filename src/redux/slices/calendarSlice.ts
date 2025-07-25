@@ -48,20 +48,16 @@ const calendarSlice = createSlice({
     reducers: {
         addSelectedDay: (state, action) => {
             state.selectedDays.push(action.payload);
-            console.log("Selected Day: ", action.payload);
         },
         removeSelectedDay: (state, action) => {
-            console.log("Removing Day: ", action.payload);
             state.selectedDays = state.selectedDays.filter(day => !(day.day === action.payload.day && day.month === action.payload.month && day.year === action.payload.year));
         },
         clearSelectedDays: (state, action) => {
             switch(action.payload) {
                 case "all":
-                    console.log("Clearing all selected days");
                     state.selectedDays = [];
                     break;
                 default:
-                    console.log("Clearing selection for current month");
                     const currentMonth = state.month;
                     state.selectedDays = state.selectedDays.filter(day => !(day.month === currentMonth && day.year === state.year));
                     break;
@@ -69,7 +65,6 @@ const calendarSlice = createSlice({
             
         },
         changeCalendar: (state, action) => {
-            console.log("Selected Days before: ", state.selectedDays);
             let { month, year } = state;
             switch (action.payload) {
                 case "next":
@@ -90,10 +85,8 @@ const calendarSlice = createSlice({
             state.month = month;
             state.year = year;
             state.days = generateCalendarDays(month, year);
-            console.log("Selected Days on Calendar Change: ", state.selectedDays);
         },
         clearSelectedWeekendDays: (state) => {
-            console.log("Clearing selected weekend days");
             state.selectedDays = state.selectedDays.filter(day => {
                 const date = new Date(day.year, day.month - 1, day.day);
                 const dayOfWeek = date.getDay();

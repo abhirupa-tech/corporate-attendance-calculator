@@ -22,7 +22,6 @@ const DatePicker: React.FC = () => {
   const isWeekendDisabled = useSelector(
     (state: RootState) => state.userPreferences.isWeekendDisabled
   );
-  console.log("Selector Value isWeekendDisabled: ", isWeekendDisabled);
 
   const today: RawDate = (() => {
     const now = new Date();
@@ -50,12 +49,6 @@ const DatePicker: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(
-      "Selected Days after update: ",
-      selectedDays,
-      "\n\ncount:",
-      selectedDays.length
-    );
     dispatch(updateAttendance(selectedDays));
   }, [selectedDays, dispatch]);
 
@@ -91,15 +84,11 @@ const DatePicker: React.FC = () => {
 
   const shouldDisableBecauseWeekend = (date: RawDate) => {
     if (!date) return true; // Disable if no date is provided
-    console.log("isWeekendIncluded: ", !isWeekendDisabled);
     if (!isWeekendDisabled) return false; // If weekends are not disabled, do not disable the date
     const shouldDisable = getDayOfWeek(date) === 0 || getDayOfWeek(date) === 6;
-    if (shouldDisable)
-      console.log("Disabling date because it's a weekend: ", date);
     return shouldDisable;
   };
 
-  console.log("Days in DatePicker: ", days);
 
   return (
     <div className="w-full bg-transparent  rounded-lg p-2">
@@ -153,7 +142,7 @@ const DatePicker: React.FC = () => {
         }
         ${date && !(isFutureDay(date) || (shouldDisableBecauseWeekend(date))) ? "bg-white/10 backdrop-blur-lg border border-white/20 text-white hover:bg-gray-700" : "text-gray-300"}
         ${isDateSelected(date) ? "bg-yellow-500 text-white font-bold" : ""}
-        ${date === null} "pointer-events-none"`}
+        ${(date === null) ? "pointer-events-none" : ""}`}
             onClick={() => handleDateClick(date)}
           >
             {date?.day ?? ""}
