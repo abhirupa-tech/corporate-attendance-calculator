@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../redux/store";
-import DatePicker from "./datePicker";
-import asset1 from "../assets/img/grid-item-hybrid.png";
 import assetWork from "../assets/img/grid-image-work.png";
+import asset1 from "../assets/img/grid-item-hybrid.png";
 import { clearSelectedDays } from "../redux/slices/calendarSlice";
-import { shouldDisableWeekends } from "../redux/slices/userDataSlice";
-import { Notification } from "./notification";
+import { shouldDisableWeekends, updateAttendance } from "../redux/slices/userDataSlice";
+import { AppDispatch, RootState } from "../redux/store";
 import { updateWeekendVisibility } from "../redux/thunks/calendarUserDataSyncThunk";
+import DatePicker from "./datePicker";
+import { Notification } from "./notification";
 
 /**
  * BentoGrid Component
@@ -18,8 +18,12 @@ import { updateWeekendVisibility } from "../redux/thunks/calendarUserDataSyncThu
 const BentoGrid: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const currentMonth = useSelector((state: RootState) => state.calendar.month);
+
   const attendancePercentage = useSelector(
     (state: RootState) => state.userPreferences.currentScore
+  );
+  const selectedDays = useSelector(
+    (state: RootState) => state.calendar.selectedDays
   );
   const isWeekendsDisabled = useSelector(
     (state: RootState) => state.userPreferences.isWeekendDisabled
@@ -30,6 +34,7 @@ const BentoGrid: React.FC = () => {
   const handleCheckboxChange = (checked: boolean) => {
     if(checked) setShowNotification(true);
     else dispatch(shouldDisableWeekends(false));
+    dispatch(updateAttendance(selectedDays));
   }
 
   const onProceedRemovingWeekends = () => {
@@ -48,15 +53,15 @@ const BentoGrid: React.FC = () => {
     <div className="w-full flex items-center justify-center">
       
       {/* Grid Layout */}
-      <div className="max-w-[1400px] xl:max-h-[600px] grid h-auto xl:h-[80vh] w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-5 gap-4 p-4 xl:mx-32 lg:mx-24 md:mx-16 sm:mx-8">
+      <div className="max-w-[1400px] xl:max-h-[600px] grid h-auto xl:h-[80vh] w-full grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-5 gap-4 p-4 xl:mx-32 lg:mx-24 md:mx-16 sm:mx-8">
         {/* Greeting Box */}
-        <div className="col-span-2 sm:col-span-2 xl:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold bg-white/10 backdrop-blur-lg border border-white/30 p-6 text-lg h-auto sm:h-full">
+        <div className="col-span-1 sm:col-span-2 xl:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold bg-white/10 backdrop-blur-lg border border-white/30 px-2 sm:p-6 text-lg h-auto sm:h-full">
           Hi Abhirupa 👋 <br />
           Let's fix your scores!
         </div>
 
         {/* Weekly Attendance */}
-        <div className="relative col-span-1 sm:row-span-auto flex flex-col bg-white/10 backdrop-blur-md border border-white/20 rounded-lg h-auto sm:h-full">
+        <div className="col-span-1 sm:col-span-2 xl:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold text-lg h-auto sm:h-full relative sm:row-span-1 flex-col bg-white/10 backdrop-blur-md border border-white/20">
           <div className="top-0 left-0 w-full text-center text-lg text-white bg-white/20 py-2 rounded-t-lg">
             Weekly
           </div>
@@ -65,8 +70,10 @@ const BentoGrid: React.FC = () => {
           </div>
         </div>
 
+        
+
         {/* Monthly Attendance */}
-        <div className="relative col-span-1 row-span-1 flex flex-col bg-white/10 backdrop-blur-md border border-white/20 rounded-lg">
+        <div className="col-span-1 sm:col-span-2 xl:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold text-lg h-auto sm:h-full relative sm:row-span-1 flex-col bg-white/10 backdrop-blur-md border border-white/20">
           <div className="top-0 left-0 w-full text-center text-lg text-white bg-white/20 py-2 rounded-t-lg">
             Monthly
           </div>
@@ -86,7 +93,8 @@ const BentoGrid: React.FC = () => {
         </div>
 
         {/* Image Section */}
-        <div className="col-span-1 row-span-3 border rounded-2xl border-amber-50">
+        {/* Hide on screens smaller than 'sm' */}
+        <div className="hidden sm:block col-span-2 sm:col-span-1 row-span-1 sm:row-span-3 border rounded-2xl border-amber-50">
           <img
             src={asset1}
             alt="Hybrid Work Grid"

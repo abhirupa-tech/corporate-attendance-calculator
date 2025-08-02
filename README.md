@@ -28,3 +28,7 @@ This project is licensed under the **MIT License** – see the [LICENSE](LICENSE
 ---
 
 Stay productive, stay present 🚀
+
+- [] UI for all Screen Sizes
+- [] Maybe ask User for a name, also warning that says that data is stored in cache currently, so no way to save it in a DB, Also Local Holidays and antional holidays are not currently tracked [New Page]
+-[] Footnot top bookmark the page in your browser
