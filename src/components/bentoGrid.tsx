@@ -44,11 +44,13 @@ const BentoGrid: React.FC = () => {
   };
 
   return (
+
     <div className="w-full flex items-center justify-center">
+      
       {/* Grid Layout */}
-      <div className="max-w-[1400px] max-h-[600px] grid h-auto xl:h-[80vh] w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-5 gap-4 p-4 xl:mx-32 lg:mx-24 md:mx-16 sm:mx-8">
+      <div className="max-w-[1400px] xl:max-h-[600px] grid h-auto xl:h-[80vh] w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-5 gap-4 p-4 xl:mx-32 lg:mx-24 md:mx-16 sm:mx-8">
         {/* Greeting Box */}
-        <div className="col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold bg-white/10 backdrop-blur-lg border border-white/30 p-6 text-lg h-auto sm:h-full">
+        <div className="col-span-2 sm:col-span-2 xl:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold bg-white/10 backdrop-blur-lg border border-white/30 p-6 text-lg h-auto sm:h-full">
           Hi Abhirupa 👋 <br />
           Let's fix your scores!
         </div>
