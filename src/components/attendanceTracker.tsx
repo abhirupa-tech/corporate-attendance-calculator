@@ -4,15 +4,13 @@ import BentoGrid from "./bentoGrid";
 const AttendanceTracker: React.FC = () => {
   return (
     <React.StrictMode>
-      <h1 className="text-5xl font-thin text-white leading-tight text-center">
-      <p className="text-5xl [font-family:'Cormorant_Garamond',serif] mb-0 sm:mb-6">
+      <p className="text-3xl p-5 bg-black/50 sm:bg-transparent sm:text-5xl [font-family:'Cormorant_Garamond',serif] mb-0 sm:mb-6 w-full sm:w-auto">
           Calculate Your{" "}
           <span className=" italic [font-variation-settings:'ital'_5]">
             Attendance
           </span>
           !
         </p>
-      </h1>
 
       <BentoGrid />
     </React.StrictMode>
