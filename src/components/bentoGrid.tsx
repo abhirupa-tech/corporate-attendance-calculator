@@ -48,36 +48,36 @@ const BentoGrid: React.FC = () => {
       <div className="m-h-auto max-w-[1400px] w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 xl:grid-cols-4 lg:grid-cols-4 gap-4 p-4 xl:mx-32 lg:mx-24 md:mx-16 sm:mx-8 items-stretch">
         
         {/* Greeting Box */}
-        <div className="col-span-1 sm:col-span-3 md:col-span-6 lg:col-span-1 xl:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold bg-white/10 backdrop-blur-lg border border-white/30 px-2 sm:p-6 text-md sm:text-lg sm:h-auto">
-          Hello Earthling 👋 <br />
+        <div className="col-span-1 text-sm md:text-md sm:col-span-3 md:col-span-6 lg:col-span-1 xl:col-span-1 rounded-lg flex items-center justify-center text-center font-semibold bg-white/10 backdrop-blur-lg border border-white/30 px-2 sm:p-6 text-md sm:text-lg sm:h-auto">
+          Hello Earthling 👋
         </div>
 
         {/* Weekly Attendance */}
-        <div className="col-span-1 md:col-span-2 lg:col-span-1 row-span-1 rounded-lg flex flex-col items-center justify-center text-center font-semibold sm:h-auto relative bg-white/10 backdrop-blur-md border border-white/20">
-          <div className="top-0 left-0 w-full text-center text-md xl:text-lg sm:text-lg text-white bg-white/20 py-2 rounded-t-lg">
+        <div className="col-span-1 md:col-span-2 lg:col-span-1 rounded-lg flex flex-col items-center justify-center text-center font-semibold sm:h-auto relative bg-white/10 backdrop-blur-md border border-white/20">
+          <div className="top-0 left-0 w-full text-center text-sm xl:text-lg sm:text-lg text-white bg-white/20 py-2 rounded-t-lg">
             Weekly
           </div>
-          <div className="flex items-center justify-center h-full text-xl font-bold text-white p-4">
+          <div className="flex items-center justify-center h-full text-md md:text-xl font-bold text-white p-4">
             {attendancePercentage.weekly}%
           </div>
         </div>
 
         {/* Monthly Attendance */}
-        <div className="col-span-1 md:col-span-2 lg:col-span-1 row-span-1 rounded-lg flex flex-col items-center justify-center text-center font-semibold sm:h-auto relative bg-white/10 backdrop-blur-md border border-white/20">
-          <div className="top-0 left-0 w-full text-center text-md xl:text-lg text-white bg-white/20 py-2 rounded-t-lg">
+        <div className="col-span-1 md:col-span-2 lg:col-span-1 rounded-lg flex flex-col items-center justify-center text-center font-semibold sm:h-auto relative bg-white/10 backdrop-blur-md border border-white/20">
+          <div className="top-0 left-0 w-full text-center text-sm xl:text-lg text-white bg-white/20 py-2 rounded-t-lg">
             Monthly
           </div>
-          <div className="flex items-center justify-center h-full text-xl font-bold text-white p-4">
+          <div className="flex items-center justify-center h-full text-md md:text-xl font-bold text-white p-4">
             {attendancePercentage.monthly}%
           </div>
         </div>
 
         {/* Annual Attendance */}
-        <div className="relative md:col-span-2 lg:col-span-1 col-span-1 row-span-1 flex flex-col bg-white/10 sm:h-auto backdrop-blur-md border border-white/20 rounded-lg">
-          <div className="top-0 left-0 w-full text-center text-md xl:text-lg text-white bg-white/20 py-2 rounded-t-lg">
+        <div className="relative md:col-span-2 lg:col-span-1 col-span-1 flex flex-col bg-white/10 sm:h-auto backdrop-blur-md border border-white/20 rounded-lg">
+          <div className="top-0 left-0 w-full text-center text-sm xl:text-lg text-white bg-white/20 py-2 rounded-t-lg">
             Annually
           </div>
-          <div className="flex items-center justify-center h-full text-xl font-bold text-white p-4">
+          <div className="flex items-center justify-center h-full text-md md:text-xl  font-bold text-white p-4">
             {attendancePercentage.yearly}%
           </div>
         </div>
@@ -141,7 +141,7 @@ const BentoGrid: React.FC = () => {
             rel="noopener noreferrer"
             className="block h-full"
           >
-            <div className="md:block h-full rounded-lg text-lg p-2 text-center bg-white/10 backdrop-blur-xl border border-white/30 flex items-center justify-center relative cursor-pointer text-white transition-colors duration-300 hover:bg-white/30 hover:backdrop-blur-xl">
+            <div className="hidden md:block h-full rounded-lg text-lg p-2 text-center bg-white/10 backdrop-blur-xl border border-white/30 flex items-center justify-center relative cursor-pointer text-white transition-colors duration-300 hover:bg-white/30 hover:backdrop-blur-xl">
               Built with ❤️ by Abhirupa
             </div>
           </a>

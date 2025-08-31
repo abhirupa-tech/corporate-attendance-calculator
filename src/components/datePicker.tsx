@@ -101,7 +101,7 @@ const DatePicker: React.FC = () => {
 
         {/* Calendar Header */}
         <div className="flex-col items-center justify-center">
-          <h2 className="text-2xl font-semibold text-gray-100 text-center">
+          <h2 className="text-lg md:text-2xl font-semibold text-gray-100 text-center">
             {getMonthDetails(month)}
           </h2>
           <h3 className="text-lg font-light text-gray-300">{year}</h3>
