@@ -5,12 +5,10 @@ import { RawDate } from "../backend/types";
 import {
   addSelectedDay,
   changeCalendar,
-  clearSelectedDays,
   removeSelectedDay,
 } from "../redux/slices/calendarSlice";
 import { updateAttendance } from "../redux/slices/userDataSlice";
 import { RootState } from "../redux/store";
-import { Notification } from "./notification";
 
 const DatePicker: React.FC = () => {
   const selectedDays = useSelector(

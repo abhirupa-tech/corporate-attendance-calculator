@@ -1,7 +1,6 @@
-import React from "react";
 import { useState } from "react";
-import { RootState } from "../redux/store";
 import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const AttendanceCalculator = () => {
   const [attendance, setAttendance] = useState("");
