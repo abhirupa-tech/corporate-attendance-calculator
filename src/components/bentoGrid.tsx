@@ -56,7 +56,7 @@ const BentoGrid: React.FC = () => {
       <div className=" m-h-auto max-w-[1400px] w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 xl:grid-cols-4 lg:grid-cols-4 gap-4 p-4 xl:mx-32 lg:mx-24 md:mx-16 sm:mx-8 items-stretch">
         {/* Greeting Box */}
         <div className="col-span-1 sm:col-span-3 md:col-span-6 lg:col-span-1 xl:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold bg-white/10 backdrop-blur-lg border border-white/30 px-2 sm:p-6 text-md sm:text-lg sm:h-auto ">
-          Hi Abhirupa 👋 <br />
+          Hello Earthling 👋 <br />
         </div>
 
         {/* Weekly Attendance */}
@@ -190,6 +190,8 @@ const BentoGrid: React.FC = () => {
           Built with ❤️ by Abhirupa
         </div>
       </div>
+
+      
       
       {showNotification && (
         <Notification
