@@ -12,36 +12,30 @@ import { Notification } from "./notification";
 /**
  * BentoGrid Component
  *
- * A React functional component that displays a structured UI grid
- * for tracking attendance scores, date selection, and interactions.
+ * Displays a structured grid for attendance scores, date selection,
+ * and related user interactions.
  */
 const BentoGrid: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const currentMonth = useSelector((state: RootState) => state.calendar.month);
 
-  const attendancePercentage = useSelector(
-    (state: RootState) => state.userPreferences.currentScore
-  );
-  const selectedDays = useSelector(
-    (state: RootState) => state.calendar.selectedDays
-  );
-  const isWeekendsDisabled = useSelector(
-    (state: RootState) => state.userPreferences.isWeekendDisabled
-  );
+  const currentMonth = useSelector((state: RootState) => state.calendar.month);
+  const attendancePercentage = useSelector((state: RootState) => state.userPreferences.currentScore);
+  const selectedDays = useSelector((state: RootState) => state.calendar.selectedDays);
+  const isWeekendsDisabled = useSelector((state: RootState) => state.userPreferences.isWeekendDisabled);
 
   const [showNotification, setShowNotification] = React.useState(false);
 
   const handleCheckboxChange = (checked: boolean) => {
-    if(checked) setShowNotification(true);
+    if (checked) setShowNotification(true);
     else dispatch(shouldDisableWeekends(false));
     dispatch(updateAttendance(selectedDays));
-  }
+  };
 
   const onProceedRemovingWeekends = () => {
     setShowNotification(false);
     dispatch(shouldDisableWeekends(true));
     dispatch(updateWeekendVisibility());
-  }
+  };
 
   const onIgnoreRemovingWeekends = () => {
     setShowNotification(false);
@@ -49,18 +43,17 @@ const BentoGrid: React.FC = () => {
   };
 
   return (
-
     <div className="w-full flex items-center justify-center">
-      
       {/* Grid Layout */}
-      <div className=" m-h-auto max-w-[1400px] w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 xl:grid-cols-4 lg:grid-cols-4 gap-4 p-4 xl:mx-32 lg:mx-24 md:mx-16 sm:mx-8 items-stretch">
+      <div className="m-h-auto max-w-[1400px] w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 xl:grid-cols-4 lg:grid-cols-4 gap-4 p-4 xl:mx-32 lg:mx-24 md:mx-16 sm:mx-8 items-stretch">
+        
         {/* Greeting Box */}
-        <div className="col-span-1 sm:col-span-3 md:col-span-6 lg:col-span-1 xl:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold bg-white/10 backdrop-blur-lg border border-white/30 px-2 sm:p-6 text-md sm:text-lg sm:h-auto ">
+        <div className="col-span-1 sm:col-span-3 md:col-span-6 lg:col-span-1 xl:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold bg-white/10 backdrop-blur-lg border border-white/30 px-2 sm:p-6 text-md sm:text-lg sm:h-auto">
           Hello Earthling 👋 <br />
         </div>
 
         {/* Weekly Attendance */}
-        <div className="col-span-1 md:col-span-2 lg:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold sm:h-auto  relative sm:row-span-1 flex-col bg-white/10 backdrop-blur-md border border-white/20">
+        <div className="col-span-1 md:col-span-2 lg:col-span-1 row-span-1 rounded-lg flex flex-col items-center justify-center text-center font-semibold sm:h-auto relative bg-white/10 backdrop-blur-md border border-white/20">
           <div className="top-0 left-0 w-full text-center text-md xl:text-lg sm:text-lg text-white bg-white/20 py-2 rounded-t-lg">
             Weekly
           </div>
@@ -69,10 +62,8 @@ const BentoGrid: React.FC = () => {
           </div>
         </div>
 
-        
-
         {/* Monthly Attendance */}
-        <div className="col-span-1 md:col-span-2 lg:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold sm:h-auto  relative sm:row-span-1 flex-col bg-white/10 backdrop-blur-md border border-white/20">
+        <div className="col-span-1 md:col-span-2 lg:col-span-1 row-span-1 rounded-lg flex flex-col items-center justify-center text-center font-semibold sm:h-auto relative bg-white/10 backdrop-blur-md border border-white/20">
           <div className="top-0 left-0 w-full text-center text-md xl:text-lg text-white bg-white/20 py-2 rounded-t-lg">
             Monthly
           </div>
@@ -82,7 +73,7 @@ const BentoGrid: React.FC = () => {
         </div>
 
         {/* Annual Attendance */}
-        <div className="relative md:col-span-2 lg:col-span-1 col-span-1 row-span-1 flex flex-col bg-white/10 sm:h-auto  backdrop-blur-md border border-white/20 rounded-lg">
+        <div className="relative md:col-span-2 lg:col-span-1 col-span-1 row-span-1 flex flex-col bg-white/10 sm:h-auto backdrop-blur-md border border-white/20 rounded-lg">
           <div className="top-0 left-0 w-full text-center text-md xl:text-lg text-white bg-white/20 py-2 rounded-t-lg">
             Annually
           </div>
@@ -91,8 +82,7 @@ const BentoGrid: React.FC = () => {
           </div>
         </div>
 
-        {/* Image Section */}
-        {/* Hide on screens 'sm' and smaller */}
+        {/* Image Section (hidden on small screens) */}
         <div className="hidden md:block md:col-span-2 lg:col-span-1 sm:col-span-1 row-span-1 sm:row-span-5 lg:row-span-2 border rounded-2xl border-amber-50">
           <img
             src={asset1}
@@ -115,17 +105,14 @@ const BentoGrid: React.FC = () => {
           />
         </div>
 
-        
-        {/* Buttons & Link Section for LG screens and up*/}
+        {/* Buttons & Links (LG and up) */}
         <div className="hidden lg:block lg:col-span-1 lg:row-span-2 md:flex-col gap-2 h-full">
-          {/* Clear Month Button */}
           <button
             className="border mb-4 border-amber-50 w-full px-4 py-3 bg-gradient-to-tr from-[#4111f0] via-[#3815b7] to-[#1d0086] brightness-125 opacity-90 rounded-2xl transition duration-300 ease-in-out hover:bg-indigo-600"
             onClick={() => dispatch(clearSelectedDays(currentMonth))}
           >
             Clear Month
           </button>
-          {/* Clear All Button */}
           <button
             className="border border-amber-50 w-full px-4 py-3 bg-gradient-to-tr from-[#4111f0] via-[#3815b7] to-[#1d0086] brightness-125 opacity-90 rounded-2xl transition duration-300 ease-in-out hover:bg-indigo-600"
             onClick={() => dispatch(clearSelectedDays("all"))}
@@ -134,26 +121,20 @@ const BentoGrid: React.FC = () => {
           </button>
         </div>
 
-
+        {/* Disable Weekends + Attribution */}
         <div className="row-span-1 col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-1 flex flex-col gap-2 h-full">
-          {/* Include Weekends Checkbox */}
           <label className="flex items-center space-x-2 cursor-pointer">
             <input
               type="checkbox"
               checked={isWeekendsDisabled}
-              onChange={() =>
-                handleCheckboxChange(!isWeekendsDisabled)
-              }
+              onChange={() => handleCheckboxChange(!isWeekendsDisabled)}
               className={`w-6 h-6 border border-gray-500 rounded-md ${
-                isWeekendsDisabled
-                  ? "bg-gray-700 rounded-md border-transparent"
-                  : ""
+                isWeekendsDisabled ? "bg-gray-700 border-transparent" : ""
               } focus:ring-2 focus:ring-gray-400`}
             />
             <span className="text-lg">Disable Weekends</span>
           </label>
 
-          {/* Attribution Link */}
           <a
             href="https://thetravellingprogrammer"
             target="_blank"
@@ -166,16 +147,14 @@ const BentoGrid: React.FC = () => {
           </a>
         </div>
 
-        {/* Buttons & Link Section */}
+        {/* Buttons (Mobile / Tablet) */}
         <div className="lg:hidden row-span-1 col-span-2 flex flex-row sm:col-span-3 md:col-span-4 lg:col-span-2 md:flex-col gap-2 h-full">
-          {/* Clear Month Button */}
           <button
             className="border border-amber-50 w-full px-4 py-3 bg-gradient-to-tr from-[#4111f0] via-[#3815b7] to-[#1d0086] brightness-125 opacity-90 rounded-2xl transition duration-300 ease-in-out hover:bg-indigo-600"
             onClick={() => dispatch(clearSelectedDays(currentMonth))}
           >
             Clear Month
           </button>
-          {/* Clear All Button */}
           <button
             className="border border-amber-50 w-full px-4 py-3 bg-gradient-to-tr from-[#4111f0] via-[#3815b7] to-[#1d0086] brightness-125 opacity-90 rounded-2xl transition duration-300 ease-in-out hover:bg-indigo-600"
             onClick={() => dispatch(clearSelectedDays("all"))}
@@ -184,19 +163,17 @@ const BentoGrid: React.FC = () => {
           </button>
         </div>
 
-        {/*Footnote for Mobile View*/}
-        
+        {/* Attribution (Mobile) */}
         <div className="md:hidden h-full col-span-2 sm:col-span-3 rounded-lg text-lg p-2 text-center bg-white/10 backdrop-blur-xl border border-white/30 flex items-center justify-center relative cursor-pointer text-white transition-colors duration-300 hover:bg-white/30 hover:backdrop-blur-xl">
           Built with ❤️ by Abhirupa
         </div>
       </div>
 
-      
-      
+      {/* Notification */}
       {showNotification && (
         <Notification
-        onProceed={onProceedRemovingWeekends}
-        onIgnore={onIgnoreRemovingWeekends}
+          onProceed={onProceedRemovingWeekends}
+          onIgnore={onIgnoreRemovingWeekends}
         />
       )}
     </div>
