@@ -134,7 +134,7 @@ const DatePicker: React.FC = () => {
         {days.map((date, index) => (
           <div
             key={index}
-            className={`py-1 text-md flex items-center justify-center w-ful  rounded-md cursor-pointer transition-colors duration-200
+            className={`py-1 text-md flex items-center justify-center w-full md:h-[50px] lg:h-[5vh] rounded-md cursor-pointer transition-colors duration-200
                       ${
                         isFutureDay(date) || shouldDisableBecauseWeekend(date)
                           ? "bg-grey-900 backdrop-blur-lg border border-gray-500/20 text-gray-500 pointer-events-none"
