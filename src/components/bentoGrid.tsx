@@ -45,39 +45,39 @@ const BentoGrid: React.FC = () => {
   return (
     <div className="w-full flex items-center justify-center">
       {/* Grid Layout */}
-      <div className="m-h-auto max-w-[1400px] w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 xl:grid-cols-4 lg:grid-cols-4 gap-4 p-4 xl:mx-32 lg:mx-24 md:mx-16 sm:mx-8 items-stretch">
+      <div className="m-h-auto max-w-[1400px] w-full grid grid-cols-6 sm:grid-cols-3 md:grid-cols-6 xl:grid-cols-4 lg:grid-cols-4 gap-4 p-4 xl:mx-32 lg:mx-24 md:mx-16 sm:mx-8 items-stretch">
         
         {/* Greeting Box */}
-        <div className="h-[8vh] sm:h-auto col-span-1 text-sm md:text-md sm:col-span-3 md:col-span-6 lg:col-span-1 xl:col-span-1 rounded-lg flex items-center justify-center text-center font-semibold bg-white/10 backdrop-blur-lg border border-white/30 px-2 sm:p-6 text-md sm:text-lg sm:h-auto">
+        <div className="hidden sm:block h-auto col-span-6 text-sm md:text-md sm:col-span-3 md:col-span-6 lg:col-span-1 xl:col-span-1 rounded-lg flex items-center justify-center text-center font-semibold bg-white/10 backdrop-blur-lg border border-white/30 px-2 sm:p-6 text-md sm:text-lg sm:h-auto">
           Hello Earthling 👋
         </div>
 
         {/* Weekly Attendance */}
-        <div className="h-[8vh] sm:h-auto col-span-1 md:col-span-2 lg:col-span-1 rounded-lg flex flex-col items-center justify-center text-center font-semibold sm:h-auto relative bg-white/10 backdrop-blur-md border border-white/20">
-          <div className="top-0 left-0 w-full text-center text-sm xl:text-lg sm:text-lg text-white bg-white/20 py-2 rounded-t-lg">
+        <div className="h-[9vh] sm:h-auto col-span-2 md:col-span-2 lg:col-span-1 rounded-lg flex flex-col items-center justify-center text-center font-semibold sm:h-auto relative bg-white/10 backdrop-blur-md border border-white/20">
+          <div className="top-0 left-0 w-full text-center text-sm xl:text-lg sm:text-lg text-white bg-white/20 py-1 sm:py-2 rounded-t-lg">
             Weekly
           </div>
-          <div className="flex items-center justify-center h-full text-md md:text-xl font-bold text-white sm:p-4">
+          <div className="flex items-center justify-center h-full text-md md:text-xl font-bold text-white p-2 sm:p-4">
             {attendancePercentage.weekly}%
           </div>
         </div>
 
         {/* Monthly Attendance */}
-        <div className="h-[8vh] sm:h-auto col-span-1 md:col-span-2 lg:col-span-1 rounded-lg flex flex-col items-center justify-center text-center font-semibold sm:h-auto relative bg-white/10 backdrop-blur-md border border-white/20">
-          <div className="top-0 left-0 w-full text-center text-sm xl:text-lg text-white bg-white/20 py-2 rounded-t-lg">
+        <div className="h-[9vh] sm:h-auto col-span-2 md:col-span-2 lg:col-span-1 rounded-lg flex flex-col items-center justify-center text-center font-semibold sm:h-auto relative bg-white/10 backdrop-blur-md border border-white/20">
+          <div className="top-0 left-0 w-full text-center text-sm xl:text-lg text-white bg-white/20 py-1 sm:py-2 rounded-t-lg">
             Monthly
           </div>
-          <div className="flex items-center justify-center h-full text-md md:text-xl font-bold text-white sm:p-4">
+          <div className="flex items-center justify-center h-full text-md md:text-xl font-bold text-white p-2 sm:p-4">
             {attendancePercentage.monthly}%
           </div>
         </div>
 
         {/* Annual Attendance */}
-        <div className="h-[8vh] sm:h-auto relative md:col-span-2 lg:col-span-1 col-span-1 flex flex-col bg-white/10 backdrop-blur-md border border-white/20 rounded-lg">
-          <div className="top-0 left-0 w-full text-center text-sm xl:text-lg text-white bg-white/20 py-2 rounded-t-lg">
+        <div className="h-[9vh] sm:h-auto relative md:col-span-2 lg:col-span-1 col-span-2 flex flex-col bg-white/10 backdrop-blur-md border border-white/20 rounded-lg">
+          <div className="top-0 left-0 w-full text-center text-sm xl:text-lg text-white bg-white/20 py-1 sm:py-2 rounded-t-lg">
             Annually
           </div>
-          <div className="flex items-center justify-center h-full text-md md:text-xl  font-bold text-white sm:p-4">
+          <div className="flex items-center justify-center h-full text-md md:text-xl  font-bold text-white p-2 sm:p-4">
             {attendancePercentage.yearly}%
           </div>
         </div>
@@ -92,7 +92,7 @@ const BentoGrid: React.FC = () => {
         </div>
 
         {/* Date Picker Section */}
-        <div className="col-span-2 sm:col-span-3 sm:row-span-4 md:col-span-6 lg:col-span-2 xl:row-span-4 row-span-6">
+        <div className="col-span-6 sm:col-span-3 sm:row-span-4 md:col-span-6 lg:col-span-2 xl:row-span-4 row-span-6">
           <DatePicker />
         </div>
 
@@ -122,7 +122,7 @@ const BentoGrid: React.FC = () => {
         </div>
 
         {/* Disable Weekends + Attribution */}
-        <div className="row-span-1 col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-1 flex flex-col gap-2 h-full">
+        <div className="row-span-1 col-span-6 sm:col-span-3 md:col-span-4 lg:col-span-1 flex flex-col gap-2 h-full">
           <label className="flex items-center space-x-2 cursor-pointer">
             <input
               type="checkbox"
@@ -148,7 +148,7 @@ const BentoGrid: React.FC = () => {
         </div>
 
         {/* Buttons (Mobile / Tablet) */}
-        <div className="lg:hidden row-span-1 col-span-2 flex flex-row sm:col-span-3 md:col-span-4 lg:col-span-2 md:flex-col gap-2 h-full">
+        <div className="lg:hidden row-span-1 col-span-6 flex flex-row sm:col-span-3 md:col-span-4 lg:col-span-2 md:flex-col gap-2 h-full">
           <button
             className="border border-amber-50 w-full px-4 py-3 bg-gradient-to-tr from-[#4111f0] via-[#3815b7] to-[#1d0086] brightness-125 opacity-90 rounded-2xl transition duration-300 ease-in-out hover:bg-indigo-600"
             onClick={() => dispatch(clearSelectedDays(currentMonth))}
@@ -164,7 +164,7 @@ const BentoGrid: React.FC = () => {
         </div>
 
         {/* Attribution (Mobile) */}
-        <div className="md:hidden h-full col-span-2 sm:col-span-3 rounded-lg text-lg p-2 text-center bg-white/10 backdrop-blur-xl border border-white/30 flex items-center justify-center relative cursor-pointer text-white transition-colors duration-300 hover:bg-white/30 hover:backdrop-blur-xl">
+        <div className="md:hidden h-full col-span-6 sm:col-span-3 rounded-lg text-lg p-2 text-center bg-white/10 backdrop-blur-xl border border-white/30 flex items-center justify-center relative cursor-pointer text-white transition-colors duration-300 hover:bg-white/30 hover:backdrop-blur-xl">
           Built with ❤️ by Abhirupa
         </div>
       </div>
