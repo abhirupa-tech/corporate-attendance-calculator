@@ -53,15 +53,15 @@ const BentoGrid: React.FC = () => {
     <div className="w-full flex items-center justify-center">
       
       {/* Grid Layout */}
-      <div className=" m-h-auto max-w-[1400px] w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 xl:mx-32 lg:mx-24 md:mx-16 sm:mx-8 items-stretch">
+      <div className=" m-h-auto max-w-[1400px] w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 xl:grid-cols-4 lg:grid-cols-4 gap-4 p-4 xl:mx-32 lg:mx-24 md:mx-16 sm:mx-8 items-stretch">
         {/* Greeting Box */}
-        <div className="col-span-1 sm:col-span-2 xl:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold bg-white/10 backdrop-blur-lg border border-white/30 px-2 sm:p-6 text-md sm:text-lg sm:h-auto ">
+        <div className="col-span-1 sm:col-span-3 md:col-span-6 xl:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold bg-white/10 backdrop-blur-lg border border-white/30 px-2 sm:p-6 text-md sm:text-lg sm:h-auto ">
           Hi Abhirupa 👋 <br />
           <p className="hidden sm:flex">Let's fix your scores!</p>
         </div>
 
         {/* Weekly Attendance */}
-        <div className="col-span-1 sm:col-span-2 xl:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold sm:h-auto  relative sm:row-span-1 flex-col bg-white/10 backdrop-blur-md border border-white/20">
+        <div className="col-span-1 md:col-span-2 xl:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold sm:h-auto  relative sm:row-span-1 flex-col bg-white/10 backdrop-blur-md border border-white/20">
           <div className="top-0 left-0 w-full text-center text-md xl:text-lg sm:text-lg text-white bg-white/20 py-2 rounded-t-lg">
             Weekly
           </div>
@@ -73,7 +73,7 @@ const BentoGrid: React.FC = () => {
         
 
         {/* Monthly Attendance */}
-        <div className="col-span-1 sm:col-span-2 xl:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold sm:h-auto  relative sm:row-span-1 flex-col bg-white/10 backdrop-blur-md border border-white/20">
+        <div className="col-span-1 md:col-span-2 xl:col-span-1 row-span-1 rounded-lg flex items-center justify-center text-center font-semibold sm:h-auto  relative sm:row-span-1 flex-col bg-white/10 backdrop-blur-md border border-white/20">
           <div className="top-0 left-0 w-full text-center text-md xl:text-lg text-white bg-white/20 py-2 rounded-t-lg">
             Monthly
           </div>
@@ -83,7 +83,7 @@ const BentoGrid: React.FC = () => {
         </div>
 
         {/* Annual Attendance */}
-        <div className="relative col-span-1 row-span-1 flex flex-col bg-white/10 sm:h-auto  backdrop-blur-md border border-white/20 rounded-lg">
+        <div className="relative md:col-span-2 col-span-1 row-span-1 flex flex-col bg-white/10 sm:h-auto  backdrop-blur-md border border-white/20 rounded-lg">
           <div className="top-0 left-0 w-full text-center text-md xl:text-lg text-white bg-white/20 py-2 rounded-t-lg">
             Annually
           </div>
@@ -93,8 +93,8 @@ const BentoGrid: React.FC = () => {
         </div>
 
         {/* Image Section */}
-        {/* Hide on screens smaller than 'sm' */}
-        <div className="hidden sm:block col-span-2 sm:col-span-1 row-span-1 sm:row-span-3 border rounded-2xl border-amber-50">
+        {/* Hide on screens 'sm' and smaller */}
+        <div className="hidden md:block md:col-span-2 sm:col-span-1 row-span-1 sm:row-span-5 border rounded-2xl border-amber-50">
           <img
             src={asset1}
             alt="Hybrid Work Grid"
@@ -103,12 +103,12 @@ const BentoGrid: React.FC = () => {
         </div>
 
         {/* Date Picker Section */}
-        <div className="col-span-2 xl:row-span-4 row-span-4">
+        <div className="col-span-2 sm:col-span-3 sm:row-span-5 md:col-span-4 xl:row-span-4 row-span-4">
           <DatePicker />
         </div>
 
         {/* Work Mode Image */}
-        <div className="hidden sm:block row-span-2 xl:row-span-3 col-span-1">
+        <div className="hidden lg:block row-span-2 xl:row-span-3 col-span-1">
           <img
             src={assetWork}
             alt="Work Mode"
@@ -116,7 +116,7 @@ const BentoGrid: React.FC = () => {
           />
         </div>
 
-        <div className="row-span-1 col-span-2 sm:col-span-1 flex flex-col gap-2 h-full">
+        <div className="row-span-1 col-span-2 sm:col-span-3 md:col-span-2 flex flex-col gap-2 h-full">
           {/* Include Weekends Checkbox */}
           <label className="flex items-center space-x-2 cursor-pointer">
             <input
@@ -141,13 +141,14 @@ const BentoGrid: React.FC = () => {
             rel="noopener noreferrer"
             className="block h-full"
           >
-            <div className="hidden sm:block h-full rounded-lg text-lg p-2 text-center bg-white/10 backdrop-blur-xl border border-white/30 flex items-center justify-center relative cursor-pointer text-white transition-colors duration-300 hover:bg-white/30 hover:backdrop-blur-xl">
+            <div className="hidden md:block h-full rounded-lg text-lg p-2 text-center bg-white/10 backdrop-blur-xl border border-white/30 flex items-center justify-center relative cursor-pointer text-white transition-colors duration-300 hover:bg-white/30 hover:backdrop-blur-xl">
               Built with ❤️ by Abhirupa
             </div>
           </a>
         </div>
+
         {/* Buttons & Link Section */}
-        <div className="row-span-1 col-span-2 flex flex-row sm:col-span-1 sm:flex-col gap-2 h-full">
+        <div className="row-span-1 col-span-2 flex flex-row sm:col-span-3 md:col-span-4 lg:col-span-1 md:flex-col gap-2 h-full">
           {/* Clear Month Button */}
           <button
             className="border border-amber-50 w-full px-4 py-3 bg-gradient-to-tr from-[#4111f0] via-[#3815b7] to-[#1d0086] brightness-125 opacity-90 rounded-2xl transition duration-300 ease-in-out hover:bg-indigo-600"
@@ -166,7 +167,7 @@ const BentoGrid: React.FC = () => {
 
         {/*Footnote for Mobile View*/}
         
-        <div className="sm:hidden h-full col-span-2 rounded-lg text-lg p-2 text-center bg-white/10 backdrop-blur-xl border border-white/30 flex items-center justify-center relative cursor-pointer text-white transition-colors duration-300 hover:bg-white/30 hover:backdrop-blur-xl">
+        <div className="md:hidden h-full col-span-2 sm:col-span-3 rounded-lg text-lg p-2 text-center bg-white/10 backdrop-blur-xl border border-white/30 flex items-center justify-center relative cursor-pointer text-white transition-colors duration-300 hover:bg-white/30 hover:backdrop-blur-xl">
           Built with ❤️ by Abhirupa
         </div>
       </div>
